@@ -1424,6 +1424,7 @@ declare
   v_trail_nome constant text := 'Mini Curso Estratégias de Marketing para o Mercado em Transformação';
   v_trilha_id uuid;
   v_total_aulas integer;
+  v_migra record;
 begin
   if not public.is_admin() then
     raise exception 'Acesso negado.';
@@ -1440,6 +1441,48 @@ begin
   if v_total_aulas = 0 then
     return;
   end if;
+
+  -- Quem termina a trilha "ganha" da Situação A: sai do board de intenção
+  -- imediata e o histórico dele (contato, resposta, abordagem, anotações)
+  -- migra pra Situação B, uma única vez (guardado pelo marcador no texto).
+  create temporary table if not exists tmp_sdr_completed_trilha_emails (email citext primary key) on commit drop;
+  delete from tmp_sdr_completed_trilha_emails where true;
+  insert into tmp_sdr_completed_trilha_emails (email)
+  select lower(u.email)::citext
+  from auth.users u
+  join public.user_lesson_progress ulp on ulp.user_id = u.id
+  join public.aulas al on al.id::text = ulp.lesson_id
+  where al.trilha_id = v_trilha_id
+  group by u.id, u.email
+  having count(distinct ulp.lesson_id) >= v_total_aulas
+  on conflict (email) do nothing;
+
+  for v_migra in
+    select a.id as a_trigger_id, a.lead_email, a.notes as a_notes, a.contacted_at,
+      a.contacted_by, a.responded, a.approach_tag
+    from public.sdr_contact_triggers a
+    where a.trail_slug = v_trail_slug
+      and a.trigger_type = 'intencao_imediata'
+      and coalesce(a.notes, '') not like '%[Migrado da Situação A]%'
+      and exists (select 1 from tmp_sdr_completed_trilha_emails c where c.email = a.lead_email)
+  loop
+    insert into public.sdr_contact_triggers (trail_slug, trigger_type, lead_email, notes)
+    values (
+      v_trail_slug, 'trilha_concluida', v_migra.lead_email,
+      '[Migrado da Situação A] Contatado em: ' || coalesce(v_migra.contacted_at::text, '—')
+        || ', por: ' || coalesce(v_migra.contacted_by, '—')
+        || ', respondeu: ' || coalesce(v_migra.responded::text, '—')
+        || ', abordagem: ' || coalesce(v_migra.approach_tag, '—')
+        || case when coalesce(v_migra.a_notes, '') <> '' then E'\nAnotações: ' || v_migra.a_notes else '' end
+    )
+    on conflict on constraint sdr_contact_triggers_unique do update
+    set notes = trim(both E'\n' from coalesce(public.sdr_contact_triggers.notes, '') || E'\n\n' || excluded.notes)
+    where coalesce(public.sdr_contact_triggers.notes, '') not like '%[Migrado da Situação A]%';
+
+    update public.sdr_contact_triggers t2
+    set notes = coalesce(t2.notes, '') || ' [Migrado da Situação A]'
+    where t2.id = v_migra.a_trigger_id;
+  end loop;
 
   return query
   -- Situação A: marcou "quero começar imediatamente" no formulário da trilha.
@@ -1522,6 +1565,9 @@ begin
     -- Quem confirmou "Quero conhecer o programa" migra pra Situação C e sai
     -- daqui, pra não duplicar o mesmo lead em dois quadros ao mesmo tempo.
     and coalesce(l.consultor_contact_opt_in, false) = false
+    -- Quem já terminou a trilha (elegível pro certificado) migra pra
+    -- Situação B e sai daqui, pelo mesmo motivo.
+    and not exists (select 1 from tmp_sdr_completed_trilha_emails c where c.email = l.email)
     and not public.sdr_is_test_lead(l.nome, l.email::text, l.cidade, l.empresa, l.cargo, l.area_formacao)
 
   union all
