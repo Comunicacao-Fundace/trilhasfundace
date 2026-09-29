@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha de Gestão Estratégica — Fundace FEA-RP/USP</title>
+  <meta name="description" content="Trilha gratuita da FUNDACE USP: estratégia, tecnologia e dados para decisões mais consistentes. 3 aulas gratuitas com certificado.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #F7F4EC;
+      --color-bg-raised: #F1EDE1;
+      --color-black: #0D0D0D;
+
+      --color-yellow: #F2B705;
+      --color-yellow-soft: #FCE8A8;
+      --color-yellow-deep: #B8860A;
+
+      --text-primary: #0D0D0D;
+      --text-secondary: #3a3a3a;
+      --text-muted: #6a6a6a;
+      --text-on-dark-primary: #ffffff;
+      --text-on-dark-muted: #b8b5ac;
+
+      --gradient-gold: linear-gradient(135deg, #B8860A 0%, #F2B705 45%, #FFE27A 65%, #B8860A 100%);
+
+      --font-display: "Oswald", "Arial Narrow", sans-serif;
+      --font-body: "Archivo", "Helvetica Neue", sans-serif;
+
+      --shadow-soft: 0 18px 40px -24px rgba(13, 13, 13, 0.35);
+      --shadow-medium: 0 20px 45px -30px rgba(13, 13, 13, 0.35);
+      --shadow-strong: 0 30px 60px -28px rgba(13, 13, 13, 0.45);
+      --shadow-gold-glow: 0 28px 60px -28px rgba(184, 134, 10, 0.45);
+
+      --section-pad-block: clamp(5rem, 10vw, 7rem);
+      --section-pad-inline: clamp(1.5rem, 6vw, 4rem);
+    }
+
+    html { scroll-behavior: smooth; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.055;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    a { color: inherit; }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    em {
+      font-style: italic;
+      font-family: var(--font-display);
+      color: var(--color-yellow-deep);
+    }
+
+    .section-kicker {
+      display: inline-block;
+      color: var(--color-yellow-deep);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .divider-under {
+      display: block;
+      width: 72px;
+      height: 2px;
+      margin: 18px auto 0;
+      background: linear-gradient(to right, transparent, var(--color-yellow-deep) 35%, var(--color-yellow) 55%, transparent);
+      border-radius: 100px;
+    }
+
+    .divider-under.left { margin: 18px 0 0; }
+
+    /* ── HERO (--color-bg) ── */
+    .hero {
+      min-height: 92vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--color-bg);
+    }
+
+    .blob-1 {
+      position: absolute;
+      top: -180px; right: -140px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle at 40% 40%, rgba(184,134,10,0.14) 0%, transparent 60%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .blob-2 {
+      position: absolute;
+      bottom: -120px; left: 10%;
+      width: 500px; height: 400px;
+      background: radial-gradient(circle, rgba(242,183,5,0.10) 0%, transparent 65%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .diag {
+      position: absolute;
+      top: 0; right: 22%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(184,134,10,0.16) 30%, rgba(184,134,10,0.16) 70%, transparent);
+      transform: rotate(8deg) translateX(0);
+      transform-origin: top center;
+      pointer-events: none;
+    }
+
+    .nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 72px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .logo-wrap { display: flex; align-items: center; width: clamp(150px, 13vw, 190px); line-height: 0; }
+    .brand-logo { display: block; width: 100%; height: auto; }
+
+    .hero-body {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px var(--section-pad-inline) 80px;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-left { flex: 1; min-width: 0; text-align: center; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      background: transparent;
+      border: 1.5px solid var(--color-yellow-deep);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 26px;
+      animation: fadeUp 0.5s ease 0s both;
+    }
+
+    .hero-badge svg { stroke: var(--color-yellow-deep); }
+
+    h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      color: var(--text-primary);
+      margin-bottom: 22px;
+      white-space: normal;
+      animation: fadeUp 0.5s ease 0.08s both;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text-secondary);
+      max-width: 620px;
+      margin: 0 auto 18px;
+      animation: fadeUp 0.5s ease 0.14s both;
+    }
+
+    .subhead {
+      font-family: var(--font-body);
+      font-size: clamp(15px, 1.55vw, 18px);
+      font-weight: 400;
+      line-height: 1.72;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      animation: fadeUp 0.5s ease 0.2s both;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      max-width: 420px;
+      margin: 0 auto;
+      animation: fadeUp 0.5s ease 0.28s both;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      min-width: 300px;
+      background: var(--gradient-gold);
+      color: var(--color-black);
+      font-family: var(--font-body);
+      font-size: 0.85rem; font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      border: none; cursor: pointer;
+      box-shadow: var(--shadow-gold-glow);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--color-yellow-deep);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .cta-btn .arrow { transition: transform 0.2s ease; }
+    .cta-btn:hover .arrow { transform: translateX(3px); }
+
+    .hero-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 22px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text-muted);
+      animation: fadeUp 0.5s ease 0.34s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 22px 24px; }
+      .hero-body { padding: 28px 24px 56px; }
+    }
+
+    /* ── scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ── INTRO SECTION (--color-bg-raised) ── */
+    .intro-section {
+      position: relative;
+      padding: var(--section-pad-block) var(--section-pad-inline);
+      background: var(--color-bg-raised);
+      text-align: center;
+    }
+
+    .intro-wrap { max-width: 760px; margin: 0 auto; }
+
+    .intro-wrap h2 {
+      font-size: clamp(1.75rem, 2.7vw, 2.75rem);
+      color: var(--text-primary);
+      margin-bottom: 26px;
+    }
+
+    .intro-wrap p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .intro-wrap strong { color: var(--text-primary); font-weight: 600; }
+
+    @media (max-width: 480px) {
+      .intro-section { padding: 72px 24px; }
+    }
+
+    /* ── LEARN (CURRICULUM) SECTION (--color-bg) ── */
+    .learn-section {
+      position: relative;
+      padding: var(--section-pad-block) var(--section-pad-inline);
+      background: var(--color-bg);
+    }
+
+    .learn-wrap { max-width: 1200px; margin: 0 auto; }
+    .learn-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+
+    .learn-head h2 {
+      font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+      color: var(--text-primary);
+    }
+
+    .learn-head p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-top: 18px;
+    }
+
+    .learn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+    .learn-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 30px 26px;
+      border-radius: 14px;
+      border: 1px solid rgba(13,13,13,0.08);
+      background: var(--color-bg-raised);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .learn-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(184,134,10,0.4);
+      box-shadow: var(--shadow-gold-glow);
+    }
+
+    .learn-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--color-yellow-soft);
+      border: 1px solid rgba(184,134,10,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .learn-eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-yellow-deep);
+      margin-bottom: 8px;
+    }
+
+    .learn-card h3 { font-size: 21px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--text-primary); }
+    .learn-card .learn-sub { font-family: var(--font-body); font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+    .learn-card p.learn-desc { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-top: auto; }
+
+    @media (max-width: 900px) {
+      .learn-section { padding: 80px 24px; }
+      .learn-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── AUDIENCE SECTION (--color-bg-raised) ── */
+    .audience-section {
+      position: relative;
+      padding: var(--section-pad-block) var(--section-pad-inline);
+      background: var(--color-bg-raised);
+    }
+
+    .audience-wrap { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .audience-head { margin-bottom: 22px; }
+    .audience-head h2 { font-size: clamp(1.4rem, 2.6vw, 2.1rem); color: var(--text-primary); }
+
+    .audience-wrap > p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.72;
+      color: var(--text-secondary);
+      max-width: 660px;
+      margin: 0 auto 12px;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .audience-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(13,13,13,0.08);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-soft);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: left;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .audience-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(184,134,10,0.35);
+      box-shadow: var(--shadow-gold-glow);
+    }
+
+    .audience-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 10px;
+      background: var(--color-yellow-soft);
+      border: 1px solid rgba(184,134,10,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .audience-section { padding: 80px 24px; }
+      .audience-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .audience-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── REGISTER SECTION (--color-black, alto impacto) ── */
+    .register-section {
+      position: relative;
+      padding: var(--section-pad-block) var(--section-pad-inline);
+      background: var(--color-black);
+    }
+
+    .register-wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 80px; align-items: start; }
+    .register-copy { padding-top: 12px; }
+
+    .register-section .section-kicker { color: var(--color-yellow); }
+
+    .reg-headline { font-size: clamp(1.75rem, 2.7vw, 2.75rem); color: var(--text-on-dark-primary); margin-bottom: 20px; }
+    .register-section em { color: var(--color-yellow); }
+    .reg-sub { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text-on-dark-muted); margin-bottom: 36px; max-width: 420px; }
+
+    .reg-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.5rem 1.1rem; border-radius: 999px;
+      background: transparent; border: 1.5px solid var(--color-yellow-deep);
+      font-family: var(--font-body);
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-yellow);
+    }
+
+    .reg-badge svg { stroke: var(--color-yellow); }
+
+    .form-card {
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(242,183,5,0.18);
+      border-radius: 16px;
+      padding: 40px 36px;
+      overflow: hidden;
+      box-shadow: var(--shadow-strong);
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute; top: 0; left: 36px; right: 36px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-yellow), transparent);
+      border-radius: 100px;
+    }
+
+    .form-card h3 { font-size: 20px; margin-bottom: 4px; color: var(--text-on-dark-primary); }
+    .form-card .form-sub { font-family: var(--font-body); font-size: 13px; color: var(--text-on-dark-muted); margin-bottom: 24px; }
+
+    .form-grid { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+
+    .field label, .radio-label-title {
+      font-family: var(--font-body);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-on-dark-muted);
+    }
+
+    .field label span, .radio-label-title span { color: var(--color-yellow); }
+
+    .field input, .field select {
+      width: 100%;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text-on-dark-primary);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      -webkit-appearance: none; appearance: none;
+    }
+
+    .field input::placeholder { color: rgba(255,255,255,0.24); }
+
+    .field input:focus, .field select:focus {
+      border-color: rgba(242,183,5,0.55);
+      box-shadow: 0 0 0 3px rgba(242,183,5,0.12);
+      background: rgba(255,255,255,0.065);
+    }
+
+    .field input.error, .field select.error { border-color: rgba(239,68,68,0.6); box-shadow: 0 0 0 3px rgba(239,68,68,0.08); }
+
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer;
+    }
+
+    .field select option { background: #171717; color: #fff; }
+
+    .radio-group { display: flex; flex-direction: column; gap: 10px; }
+    .radio-options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .radio-options.col { flex-direction: column; }
+
+    .radio-option {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.035);
+      font-family: var(--font-body);
+      font-size: 13px; color: var(--text-on-dark-muted);
+      cursor: pointer; transition: all 0.18s ease; user-select: none;
+    }
+
+    .radio-option:hover { border-color: rgba(242,183,5,0.35); color: #fff; background: rgba(242,183,5,0.08); }
+
+    .radio-option input[type="radio"] {
+      appearance: none; -webkit-appearance: none;
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      background: transparent; flex-shrink: 0; transition: all 0.18s ease; margin: 0;
+    }
+
+    .radio-option input[type="radio"]:checked { border-color: var(--color-yellow); background: var(--color-yellow); box-shadow: 0 0 0 3px rgba(242,183,5,0.2); }
+    .radio-option:has(input:checked) { border-color: rgba(242,183,5,0.5); background: rgba(242,183,5,0.12); color: var(--color-yellow); }
+
+    .form-consent { font-family: var(--font-body); font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.65; }
+
+    .msg-box { display: none; padding: 14px 18px; border-radius: 10px; font-family: var(--font-body); font-size: 14px; font-weight: 500; line-height: 1.5; }
+    .msg-box.success { display: block; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
+    .msg-box.error { display: block; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+
+    .submit-btn {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--gradient-gold); color: var(--color-black);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 0.95rem 2rem; border-radius: 8px; border: none; cursor: pointer;
+      box-shadow: var(--shadow-gold-glow);
+      transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .submit-btn:hover:not(:disabled) { background: var(--color-yellow-deep); color: #fff; transform: translateY(-2px); }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    @media (max-width: 1050px) { .register-section { padding-left: 48px; padding-right: 48px; } .register-wrap { gap: 56px; } }
+    @media (max-width: 900px) { .register-section { padding: 80px 24px; } .register-wrap { grid-template-columns: 1fr; gap: 48px; } .reg-sub { max-width: 100%; } }
+    @media (max-width: 600px) { .form-card { padding: 32px 24px; } .form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .register-section { padding: 64px 24px; } .form-card { padding: 28px 20px; } }
+
+    /* ── MBA SECTION (--color-bg-raised) ── */
+    .mba-section {
+      position: relative;
+      padding: var(--section-pad-block) var(--section-pad-inline);
+      background: var(--color-bg-raised);
+    }
+
+    .mba-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+
+    .mba-content h2 { font-size: clamp(1.4rem, 2.6vw, 2.1rem); margin-bottom: 18px; color: var(--text-primary); }
+    .mba-content .mba-lead { font-family: var(--font-body); font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
+    .mba-content p { font-family: var(--font-body); font-size: 16px; line-height: 1.72; color: var(--text-secondary); margin-bottom: 16px; max-width: 520px; }
+    .mba-content p.mba-emphasis { font-weight: 600; color: var(--text-primary); }
+
+    .mba-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 12px;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 700; color: var(--color-yellow-deep);
+      text-decoration: none; border-bottom: 1px solid rgba(184,134,10,0.45); padding-bottom: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .mba-link:hover { transform: translateX(4px); border-color: var(--color-yellow-deep); }
+
+    .mba-card {
+      background: var(--color-bg);
+      border: 1px solid rgba(13,13,13,0.08);
+      border-radius: 14px;
+      padding: 28px 26px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mba-card-head { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid rgba(13,13,13,0.08); }
+    .mba-card-head p { font-family: var(--font-body); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-yellow-deep); font-weight: 700; margin-bottom: 2px; }
+    .mba-card-head strong { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+
+    .mba-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .mba-card ul li { display: flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 14px; color: var(--text-secondary); }
+
+    .mba-card ul li::before {
+      content: ''; width: 16px; height: 16px; flex-shrink: 0; border-radius: 50%;
+      background: var(--color-yellow-soft); border: 1px solid var(--color-yellow-deep);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 5L4 7.5L8.5 2' stroke='%23B8860A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 8px 8px; background-position: center; background-repeat: no-repeat;
+    }
+
+    @media (max-width: 900px) {
+      .mba-section { padding: 80px 24px; }
+      .mba-wrap { grid-template-columns: 1fr; }
+      .mba-content p { max-width: 100%; }
+    }
+
+    /* ── FOOTER (--color-black) ── */
+    .site-footer {
+      padding: 32px 72px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: var(--color-black);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+
+    .site-footer img { height: 22px; width: auto; opacity: 0.75; }
+    .site-footer span { font-family: var(--font-body); font-size: 12px; color: var(--text-on-dark-muted); }
+
+    @media (max-width: 480px) {
+      .site-footer { padding: 24px; justify-content: center; text-align: center; }
+    }
+  </style>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '351038655827396');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=351038655827396&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
+
+  <!-- LinkedIn Insight Tag -->
+  <script type="text/javascript">
+    _linkedin_partner_id = "2618777";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+  </script>
+  <script type="text/javascript">
+    (function(l) {
+      if (!l) { window.lintrk = function(a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName("script")[0];
+      var b = document.createElement("script");
+      b.type = "text/javascript"; b.async = true;
+      b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+      s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
+  </script>
+  <noscript><img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=2618777&fmt=gif" /></noscript>
+</head>
+<body>
+
+<section class="hero">
+  <div class="blob-1"></div>
+  <div class="blob-2"></div>
+  <div class="diag"></div>
+
+  <nav class="nav">
+    <div class="logo-wrap">
+      <img class="brand-logo" src="./Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace">
+    </div>
+  </nav>
+
+  <div class="hero-body">
+    <div class="hero-left">
+
+      <span class="hero-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
+        Trilha Gratuita
+      </span>
+
+      <h1>Trilha de <em>Gestão Estratégica</em></h1>
+
+      <p class="hero-tagline">Estratégia para um cenário em que mudanças, tecnologia e dados transformam a forma de tomar decisões.</p>
+
+      <p class="subhead">Acesse 3 aulas gratuitas e amplie seu olhar sobre alguns dos temas que estão redefinindo a gestão das organizações.</p>
+
+      <div class="cta-row">
+        <a href="#inscricao" class="cta-btn">
+          Quero acessar a trilha gratuita
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="intro-section reveal">
+  <div class="intro-wrap">
+    <h2>O cenário muda. A estratégia também precisa mudar.</h2>
+    <span class="divider-under"></span>
+    <p style="margin-top: 26px;">É preciso saber interpretar cenários, compreender o impacto da tecnologia, transformar dados em informação relevante e conectar tudo isso aos objetivos da organização.</p>
+    <p>É esse olhar que a Trilha de Gestão Estratégica convida você a desenvolver.</p>
+  </div>
+</section>
+
+<section class="learn-section">
+  <div class="learn-wrap">
+    <div class="learn-head reveal">
+      <span class="section-kicker">Conteúdo</span>
+      <h2>3 aulas <em>gratuitas</em></h2>
+      <span class="divider-under"></span>
+      <p>A trilha reúne conteúdos que conectam estratégia, tecnologia, dados e comunicação, ajudando você a ampliar sua visão sobre os desafios da gestão contemporânea.</p>
+    </div>
+
+    <div class="learn-grid">
+
+      <div class="learn-card reveal">
+        <div class="learn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+        </div>
+        <span class="learn-eyebrow">Aula 01</span>
+        <h3>Gestão Estratégica em Cenários de Mudanças</h3>
+        <p class="learn-sub">Prof. Dr. Alexandre Dias</p>
+        <p class="learn-desc">Como pensar estrategicamente quando o ambiente muda constantemente? Uma reflexão sobre cenários, transformação e os desafios de construir estratégias capazes de responder às mudanças sem perder de vista os objetivos da organização.</p>
+      </div>
+
+      <div class="learn-card reveal">
+        <div class="learn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>
+        </div>
+        <span class="learn-eyebrow">Aula 02</span>
+        <h3>Qual o papel da tecnologia na estratégia?</h3>
+        <p class="learn-sub">Prof. Marlon Fernandes</p>
+        <p class="learn-desc">Tecnologia não é apenas ferramenta ou suporte operacional. Nesta aula, você vai refletir sobre como ela influencia modelos de negócio, decisões e a própria construção da estratégia.</p>
+      </div>
+
+      <div class="learn-card reveal">
+        <div class="learn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+        </div>
+        <span class="learn-eyebrow">Aula 03</span>
+        <h3>Dados, Escuta Ativa e Narrativas Autênticas para Estratégias que Geram Resultado</h3>
+        <p class="learn-sub">Rafael Wirz</p>
+        <p class="learn-desc">Dados ajudam a compreender o cenário. A escuta amplia a compreensão sobre pessoas e contextos. E boas narrativas ajudam a transformar informação em direção. Entenda como esses elementos podem se conectar para apoiar estratégias mais consistentes e orientadas a resultados.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="audience-section">
+  <div class="audience-wrap">
+    <div class="audience-head reveal">
+      <span class="section-kicker">Público</span>
+      <h2>Para quem quer tomar decisões com mais <em>visão</em> e menos achismo.</h2>
+      <span class="divider-under"></span>
+    </div>
+
+    <p style="margin-top: 26px;">A Trilha de Gestão Estratégica é indicada para profissionais que atuam ou desejam atuar em posições de gestão e liderança, gestores que participam de decisões estratégicas, empreendedores e profissionais que querem desenvolver uma visão mais ampla sobre estratégia, tecnologia e dados.</p>
+    <p>É também uma oportunidade para quem percebe que, diante de cenários cada vez mais complexos, tomar boas decisões exige repertório, análise e capacidade de conectar diferentes perspectivas.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <span class="audience-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        </span>
+        Gestores e líderes de equipes
+      </div>
+      <div class="audience-card reveal">
+        <span class="audience-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        </span>
+        Gestores em decisões estratégicas
+      </div>
+      <div class="audience-card reveal">
+        <span class="audience-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        </span>
+        Empreendedores
+      </div>
+      <div class="audience-card reveal">
+        <span class="audience-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        </span>
+        Visão ampla sobre estratégia, tecnologia e dados
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="register-section" id="inscricao">
+  <div class="register-wrap">
+
+    <div class="register-copy reveal">
+      <span class="section-kicker">Inscrição gratuita</span>
+      <h2 class="reg-headline">Comece agora a <em>Trilha de Gestão Estratégica</em></h2>
+      <p class="reg-sub">Preencha seus dados para ter acesso gratuito às três aulas.</p>
+      <div class="reg-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
+        Pré-requisito: graduação completa
+      </div>
+    </div>
+
+    <div class="register-form-col reveal">
+      <div class="form-card">
+        <h3>Garanta sua vaga</h3>
+        <p class="form-sub">Leva menos de 1 minuto.</p>
+        <form id="register-form" class="form-grid" novalidate>
+
+          <div class="radio-group">
+            <div class="radio-label-title">Possui formação superior? <span>*</span></div>
+            <div class="radio-options">
+              <label class="radio-option"><input type="radio" name="formacao_superior" value="sim" required> Sim</label>
+              <label class="radio-option"><input type="radio" name="formacao_superior" value="nao"> Não</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="nome">Nome <span>*</span></label>
+            <input id="nome" type="text" placeholder="Seu nome completo" required>
+          </div>
+
+          <div class="field">
+            <label for="email">E-mail <span>*</span></label>
+            <input id="email" type="email" placeholder="seu@empresa.com" required>
+          </div>
+
+          <div class="field">
+            <label for="telefone">WhatsApp <span>*</span></label>
+            <input id="telefone" type="tel" placeholder="(11) 90000-0000" required>
+          </div>
+
+          <div class="field">
+            <label for="area_formacao">Área de formação <span>*</span></label>
+            <select id="area_formacao" required>
+              <option value="" disabled selected>Selecione sua área</option>
+              <option>Contabilidade</option>
+              <option>Administração</option>
+              <option>Economia</option>
+              <option>Finanças</option>
+              <option>Direito</option>
+              <option>Engenharia</option>
+              <option>Outra</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="empresa">Empresa <span>*</span></label>
+              <input id="empresa" type="text" placeholder="Nome da empresa" required>
+            </div>
+            <div class="field">
+              <label for="cargo">Cargo <span>*</span></label>
+              <input id="cargo" type="text" placeholder="Seu cargo atual" required>
+            </div>
+          </div>
+
+          <div class="radio-group">
+            <div class="radio-label-title">Pretende fazer uma pós-graduação ou MBA? <span>*</span></div>
+            <div class="radio-options col">
+              <label class="radio-option"><input type="radio" name="pretende_pos" value="sim_agora" required> Sim, imediatamente</label>
+              <label class="radio-option"><input type="radio" name="pretende_pos" value="sim_depois"> Sim, mas não agora</label>
+              <label class="radio-option"><input type="radio" name="pretende_pos" value="nao"> Não</label>
+            </div>
+          </div>
+
+          <p class="form-consent">Ao se inscrever, você concorda em receber comunicações da FUNDACE.</p>
+
+          <div class="msg-box" id="msg-box"></div>
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Quero acessar a trilha
+            <span>→</span>
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="mba-section">
+  <div class="mba-wrap">
+
+    <div class="mba-content reveal">
+      <span class="section-kicker">MBA com Certificado USP</span>
+      <h2>E se você quiser ir <em>além?</em></h2>
+      <p class="mba-lead">Conheça o MBA USP em Gestão Estratégica Baseada em Dados.</p>
+      <p>A trilha apresenta três perspectivas importantes para a gestão contemporânea. No MBA USP em Gestão Estratégica Baseada em Dados, essa visão é aprofundada em uma formação estruturada para profissionais que precisam transformar estratégia em execução e tomar decisões mais fundamentadas.</p>
+      <p>O programa conecta gestão estratégica, liderança, inteligência de mercado, dados, finanças, execução e governança, desenvolvendo uma visão integrada das diferentes dimensões que influenciam as decisões de uma organização.</p>
+      <p class="mba-emphasis">Menos achismo. Mais gestão baseada em dados.</p>
+      <p>Ao longo do MBA, você desenvolve competências para analisar cenários, estruturar indicadores, interpretar resultados, avaliar decisões e transformar informações em direcionamento estratégico.</p>
+      <a href="https://www.fundace.org.br/curso/mba-ead-em-gestao-estrategica-baseada-em-dados" target="_blank" rel="noreferrer" class="mba-link">Conheça o MBA →</a>
+    </div>
+
+    <div class="mba-card reveal">
+      <div class="mba-card-head">
+        <div>
+          <p>Curso online · Certificado USP</p>
+          <strong>MBA USP em Gestão Estratégica Baseada em Dados</strong>
+        </div>
+      </div>
+      <ul>
+        <li>Professores especialistas</li>
+        <li>Conteúdo atualizado</li>
+        <li>Visão estratégica</li>
+        <li>Aplicação prática</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <img src="Logo Fundace-F-BRANCO (1).png" alt="FUNDACE">
+  <span>© 2026 FUNDACE. Todos os direitos reservados.</span>
+</footer>
+
+<script src="./supabase/config.js"></script>
+<script src="./supabase/tracking.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // Scroll reveal (fade + translateY ao entrar na viewport)
+  (function() {
+    const revealEls = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window) || !revealEls.length) {
+      revealEls.forEach(function(el) { el.classList.add("is-visible"); });
+      return;
+    }
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    revealEls.forEach(function(el) { observer.observe(el); });
+  })();
+</script>
+<script>
+  const { createClient } = supabase;
+  const db = createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (session) window.location.href = "./Index.html";
+  });
+
+  const form      = document.getElementById("register-form");
+  const submitBtn = document.getElementById("submit-btn");
+  const msgBox    = document.getElementById("msg-box");
+  const TRILHA_NOME = "Trilha de Gestão Estratégica";
+  const ATTR_STORAGE_KEY = "fundace_trilha_attribution";
+  const ATTR_STORAGE_EMAIL_PREFIX = "fundace_trilha_attribution:";
+
+  function normalizePhone(value) {
+    return value.replace(/\D/g, "");
+  }
+
+  function readCookie(name) {
+    const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = document.cookie.match(new RegExp("(?:^|; )" + escapedName + "=([^;]*)"));
+    return match ? decodeURIComponent(match[1]) : "";
+  }
+
+  function mergeAttribution(base, overlay) {
+    const merged = Object.assign({}, base || {});
+    Object.entries(overlay || {}).forEach(function([key, value]) {
+      if (value !== null && value !== undefined && value !== "") {
+        merged[key] = value;
+      }
+    });
+    return merged;
+  }
+
+  function generatePseudoClientId() {
+    return Date.now() + "." + Math.floor(Math.random() * 1e9);
+  }
+
+  function getOrCreateGaClientId() {
+    const gaCookie = readCookie("_ga");
+    if (gaCookie) {
+      const parts = gaCookie.split(".");
+      if (parts.length >= 4) return parts[2] + "." + parts[3];
+    }
+    const storageKey = "fundace_ga_client_id";
+    const existing = localStorage.getItem(storageKey);
+    if (existing) return existing;
+    const generated = generatePseudoClientId();
+    localStorage.setItem(storageKey, generated);
+    return generated;
+  }
+
+  function getOrCreateGaSessionId() {
+    const storageKey = "fundace_ga_session_id";
+    const existing = sessionStorage.getItem(storageKey);
+    if (existing) return existing;
+    const generated = String(Math.floor(Date.now() / 1000));
+    sessionStorage.setItem(storageKey, generated);
+    return generated;
+  }
+
+  function buildDerivedFbc(fbclid) {
+    if (!fbclid) return "";
+    return "fb.1." + Date.now() + "." + fbclid;
+  }
+
+  function buildAttributionSnapshot(overrides) {
+    overrides = overrides || {};
+    const url = new URL(window.location.href);
+    const query = url.searchParams;
+    const stored = (function() {
+      try { return JSON.parse(localStorage.getItem(ATTR_STORAGE_KEY) || "{}"); }
+      catch (e) { return {}; }
+    })();
+
+    const fbclid = overrides.fbclid || query.get("fbclid") || stored.fbclid || "";
+    const fbp = readCookie("_fbp") || stored.fbp || "";
+    const fbc = readCookie("_fbc") || stored.fbc || buildDerivedFbc(fbclid);
+
+    if (fbp) localStorage.setItem("fundace_fbp", fbp);
+    if (fbc) localStorage.setItem("fundace_fbc", fbc);
+
+    return mergeAttribution(stored, Object.assign({
+      utm_source: query.get("utm_source") || "",
+      utm_medium: query.get("utm_medium") || "",
+      utm_campaign: query.get("utm_campaign") || "",
+      utm_term: query.get("utm_term") || "",
+      utm_content: query.get("utm_content") || "",
+      gclid: query.get("gclid") || "",
+      fbclid: fbclid,
+      fbp: fbp,
+      fbc: fbc,
+      landing_page_url: stored.landing_page_url || window.location.href,
+      page_url: window.location.href,
+      referrer_url: document.referrer || stored.referrer_url || "",
+      ga_client_id: getOrCreateGaClientId(),
+      ga_session_id: getOrCreateGaSessionId(),
+      captured_at: new Date().toISOString(),
+    }, overrides));
+  }
+
+  function persistAttribution(email) {
+    email = email || "";
+    const snapshot = buildAttributionSnapshot();
+    localStorage.setItem(ATTR_STORAGE_KEY, JSON.stringify(snapshot));
+    if (email) {
+      localStorage.setItem(ATTR_STORAGE_EMAIL_PREFIX + email.toLowerCase(), JSON.stringify(snapshot));
+    }
+    return snapshot;
+  }
+
+  persistAttribution();
+
+  function showMsg(type, text) {
+    msgBox.className = "msg-box " + type;
+    msgBox.textContent = text;
+    msgBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  async function syncLeadToActiveCampaign(payload) {
+    try {
+      const response = await fetch(window.SUPABASE_CONFIG.url + "/functions/v1/activecampaign-sync-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: window.SUPABASE_CONFIG.anonKey,
+          Authorization: "Bearer " + window.SUPABASE_CONFIG.anonKey
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const result = await response.json().catch(function() { return {}; });
+        console.error("Erro ao sincronizar lead no ActiveCampaign:", result.error || response.statusText);
+      }
+    } catch (error) {
+      console.error("Falha ao chamar integração com ActiveCampaign:", error);
+    }
+  }
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    msgBox.className = "msg-box";
+    msgBox.textContent = "";
+
+    const nome          = document.getElementById("nome").value.trim();
+    const email         = document.getElementById("email").value.trim();
+    const telefone      = document.getElementById("telefone").value.trim();
+    const area_formacao = document.getElementById("area_formacao").value.trim();
+    const empresa       = document.getElementById("empresa").value.trim();
+    const cargo         = document.getElementById("cargo").value.trim();
+    const formacaoRadio = document.querySelector('input[name="formacao_superior"]:checked');
+    const posRadio      = document.querySelector('input[name="pretende_pos"]:checked');
+
+    if (!formacaoRadio || !nome || !email || !telefone || !area_formacao || !empresa || !cargo || !posRadio) {
+      showMsg("error", "Preencha todos os campos obrigatórios (*).");
+      return;
+    }
+    if (!email.includes("@")) {
+      showMsg("error", "Informe um e-mail válido.");
+      return;
+    }
+    if (normalizePhone(telefone).length < 10) {
+      showMsg("error", "Informe um telefone válido com DDD.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
+    const attribution = buildAttributionSnapshot();
+
+    const { error } = await db.rpc("capture_lead", {
+      p_nome: nome,
+      p_email: email.toLowerCase(),
+      p_cidade: null,
+      p_telefone: normalizePhone(telefone),
+      p_possui_formacao_superior: formacaoRadio.value === "sim",
+      p_area_formacao: area_formacao,
+      p_empresa: empresa,
+      p_cargo: cargo,
+      p_pretende_pos: posRadio.value,
+      p_nome_trilha: TRILHA_NOME,
+      p_utm_source: attribution.utm_source || null,
+      p_utm_medium: attribution.utm_medium || null,
+      p_utm_campaign: attribution.utm_campaign || null,
+      p_utm_term: attribution.utm_term || null,
+      p_utm_content: attribution.utm_content || null,
+      p_gclid: attribution.gclid || null,
+      p_fbclid: attribution.fbclid || null,
+      p_landing_page_url: attribution.landing_page_url || null,
+      p_referrer_url: attribution.referrer_url || null
+    });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Quero acessar a trilha";
+
+    if (error) {
+      console.error("Erro ao capturar lead:", error);
+      showMsg("error", "Não foi possível enviar seu cadastro agora. Tente novamente em instantes.");
+      return;
+    }
+
+    if (window.fbq) fbq("track", "Lead");
+    if (window.gtag) gtag("event", "generate_lead");
+
+    syncLeadToActiveCampaign({
+      nome: nome,
+      email: email,
+      telefone: normalizePhone(telefone),
+      nome_trilha: TRILHA_NOME
+    });
+
+    persistAttribution(email);
+
+    window.location.href = "./cadastrar-senha.html?email=" + encodeURIComponent(email) + "&nome=" + encodeURIComponent(nome) + "&trilha=gedat";
+  });
+</script>
+
+</body>
+</html>

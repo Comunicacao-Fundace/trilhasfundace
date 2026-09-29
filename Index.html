@@ -481,6 +481,76 @@
     }
     .back-btn:hover { color: var(--brand-ink); }
 
+    /* ── NPS MODAL (pesquisa antes do certificado) ─────────────── */
+    .nps-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(10,10,10,0.62);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      animation: fadeUp 0.24s ease both;
+    }
+    .nps-card {
+      position: relative;
+      width: min(520px, 100%);
+      background: var(--brand-white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-strong);
+      padding: 32px 30px 26px;
+    }
+    .nps-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 32px; height: 32px; border-radius: 999px; border: none;
+      background: rgba(0,0,0,0.05); color: var(--brand-ink-soft);
+      font-size: 1.1rem; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s ease;
+    }
+    .nps-close:hover { background: rgba(0,0,0,0.1); }
+    .nps-eyebrow {
+      font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--brand-yellow-dark); margin-bottom: 10px;
+    }
+    .nps-card h3 { font-size: 1.35rem; max-width: 26ch; margin-bottom: 8px; }
+    .nps-card p.nps-sub { font-size: 0.92rem; color: var(--brand-ink-soft); line-height: 1.55; margin: 0 0 20px; }
+    .nps-scale {
+      display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px;
+      margin-bottom: 8px;
+    }
+    .nps-score-btn {
+      aspect-ratio: 1; border-radius: 10px; border: 1.5px solid rgba(0,0,0,0.12);
+      background: var(--brand-white); font: inherit; font-weight: 700; font-size: 0.86rem;
+      color: var(--brand-ink); cursor: pointer; transition: all 0.15s ease;
+      display: flex; align-items: center; justify-content: center; padding: 0;
+    }
+    .nps-score-btn:hover { border-color: var(--brand-yellow-dark); }
+    .nps-score-btn.selected {
+      background: var(--brand-yellow); border-color: var(--brand-yellow-dark);
+      color: var(--brand-black); box-shadow: 0 4px 14px rgba(254,183,55,0.35);
+    }
+    .nps-scale-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.74rem; color: var(--brand-ink-soft); margin-bottom: 20px;
+    }
+    .nps-card textarea {
+      width: 100%; min-height: 78px; resize: vertical; font: inherit; font-size: 0.9rem;
+      padding: 12px 14px; border-radius: 14px; border: 1.5px solid rgba(0,0,0,0.12);
+      margin-bottom: 18px; box-sizing: border-box;
+    }
+    .nps-card textarea:focus { outline: none; border-color: var(--brand-yellow-dark); }
+    .nps-submit {
+      width: 100%; padding: 14px 18px; border-radius: 999px; border: none;
+      background: var(--brand-black); color: var(--brand-white);
+      font: inherit; font-weight: 700; font-size: 0.94rem; cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+    .nps-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .nps-error { color: #c0392b; font-size: 0.84rem; margin: 10px 0 0; display: none; }
+    @media (max-width: 480px) {
+      .nps-scale { grid-template-columns: repeat(6, 1fr); }
+      .nps-scale-labels { display: none; }
+    }
+
     /* ── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 1080px) {
       .portal-grid, .learning-grid { grid-template-columns: 1fr; }
@@ -671,6 +741,24 @@
         </div><!-- /portal-wrapper -->
       </div>
     </main>
+  </div>
+
+  <!-- Pesquisa de NPS antes de liberar o download do certificado -->
+  <div class="nps-overlay hidden" id="nps-overlay">
+    <div class="nps-card">
+      <button type="button" class="nps-close" id="nps-close" aria-label="Fechar">✕</button>
+      <div class="nps-eyebrow">Antes de baixar seu certificado</div>
+      <h3>De 0 a 10, o quanto você recomendaria essa trilha para um amigo ou colega?</h3>
+      <p class="nps-sub">Sua resposta leva 10 segundos e ajuda a Fundace a melhorar as próximas trilhas.</p>
+      <div class="nps-scale" id="nps-scale"></div>
+      <div class="nps-scale-labels">
+        <span>Nada provável</span>
+        <span>Extremamente provável</span>
+      </div>
+      <textarea id="nps-comment" placeholder="Quer contar mais alguma coisa? (opcional)"></textarea>
+      <button type="button" class="nps-submit" id="nps-submit" disabled>Enviar e baixar certificado</button>
+      <p class="nps-error" id="nps-error">Escolha uma nota de 0 a 10 antes de enviar.</p>
+    </div>
   </div>
 
   <script src="./supabase/config.js"></script>
@@ -1060,6 +1148,105 @@
     const commentList      = document.getElementById("comment-list");
     const lockedOverlay    = document.getElementById("locked-overlay");
     const videoShell       = document.getElementById("video-shell");
+    const npsOverlay       = document.getElementById("nps-overlay");
+    const npsScale         = document.getElementById("nps-scale");
+    const npsComment       = document.getElementById("nps-comment");
+    const npsSubmit        = document.getElementById("nps-submit");
+    const npsClose         = document.getElementById("nps-close");
+    const npsError         = document.getElementById("nps-error");
+
+    // Pesquisa de NPS só nessa trilha por enquanto (piloto).
+    const NPS_TRAIL_SLUG = "trilha-nova-de-marketing";
+    let npsSelectedScore = null;
+
+    for (let i = 0; i <= 10; i += 1) {
+      const scoreBtn = document.createElement("button");
+      scoreBtn.type = "button";
+      scoreBtn.className = "nps-score-btn";
+      scoreBtn.textContent = String(i);
+      scoreBtn.addEventListener("click", () => {
+        npsSelectedScore = i;
+        npsError.style.display = "none";
+        npsSubmit.disabled = false;
+        npsScale.querySelectorAll(".nps-score-btn").forEach(b => b.classList.toggle("selected", b === scoreBtn));
+      });
+      npsScale.appendChild(scoreBtn);
+    }
+
+    // Mostra a pesquisa antes do certificado; resolve true se respondeu
+    // (pode seguir pro download) ou false se fechou sem responder.
+    function openNpsModal() {
+      return new Promise(resolve => {
+        npsSelectedScore = null;
+        npsComment.value = "";
+        npsError.style.display = "none";
+        npsSubmit.disabled = true;
+        npsSubmit.textContent = "Enviar e baixar certificado";
+        npsScale.querySelectorAll(".nps-score-btn").forEach(b => b.classList.remove("selected"));
+        npsOverlay.classList.remove("hidden");
+
+        function cleanup() {
+          npsOverlay.classList.add("hidden");
+          npsSubmit.removeEventListener("click", onSubmit);
+          npsClose.removeEventListener("click", onClose);
+        }
+
+        function onClose() {
+          cleanup();
+          resolve(false);
+        }
+
+        async function onSubmit() {
+          if (npsSelectedScore === null) {
+            npsError.style.display = "block";
+            return;
+          }
+
+          npsSubmit.disabled = true;
+          npsSubmit.textContent = "Enviando...";
+
+          const { error } = await db.rpc("record_trilha_nps_resposta", {
+            p_email: currentUser.email,
+            p_trail_slug: currentCourse.id,
+            p_score: npsSelectedScore,
+            p_nome: certificateName(),
+            p_comentario: npsComment.value.trim() || null
+          });
+
+          if (error) {
+            console.error("Erro ao salvar resposta do NPS:", error);
+            npsSubmit.disabled = false;
+            npsSubmit.textContent = "Enviar e baixar certificado";
+            alert("Não foi possível enviar sua resposta agora. Tente novamente.");
+            return;
+          }
+
+          cleanup();
+          resolve(true);
+        }
+
+        npsSubmit.addEventListener("click", onSubmit);
+        npsClose.addEventListener("click", onClose);
+      });
+    }
+
+    async function ensureNpsAnswered() {
+      if (currentCourse?.id !== NPS_TRAIL_SLUG || !currentUser?.email) return true;
+
+      const { data: alreadyAnswered, error } = await db.rpc("has_answered_trilha_nps", {
+        p_email: currentUser.email,
+        p_trail_slug: currentCourse.id
+      });
+
+      if (error) {
+        console.error("Erro ao checar resposta do NPS:", error);
+        return true;
+      }
+
+      if (alreadyAnswered) return true;
+
+      return openNpsModal();
+    }
 
     function storageKey() {
       const userId = currentUser?.id || "guest";
@@ -1538,6 +1725,9 @@
     certificateButton.addEventListener("click", async () => {
       if (progressPercent() < 100) return;
 
+      const canProceed = await ensureNpsAnswered();
+      if (!canProceed) return;
+
       certificateButton.disabled = true;
       certificateButton.textContent = "Gerando certificado...";
 
@@ -1606,6 +1796,7 @@
       if (courses[raw]) return raw;
       const normalized = normalizePlain(raw);
       if (normalized.includes("projetos")) return "gestao-projetos";
+      if (normalized.includes("estrategica")) return "gedat";
       if (normalized.includes("gestao")) return "gestao";
       if (normalized.includes("contifrs") || normalized.includes("ifrs") || normalized.includes("contabilidade")) return "ifrs";
       if (normalized.includes("financas")) return "financas";

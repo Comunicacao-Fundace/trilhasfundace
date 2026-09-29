@@ -501,8 +501,13 @@
       return trailName.includes("direito") || trailName.includes("gde");
     }
 
+    function isGedatTrailName(value) {
+      return normalizeText(value).includes("estrategica");
+    }
+
     function currentTrailSlug(context = offerState.leadContext) {
       if (isGestaoProjetosTrailName(context?.nome_trilha) || trilhaParam === "gestao-projetos") return "gestao-projetos";
+      if (isGedatTrailName(context?.nome_trilha) || trilhaParam === "gedat") return "gedat";
       if (isGestaoTrailName(context?.nome_trilha) || trilhaParam === "gestao") return "gestao";
       if (isMarketingNovaTrailName(context?.nome_trilha) || trilhaParam === "marketing-nova") return "marketing-nova";
       if (isMarketingTrailName(context?.nome_trilha) || trilhaParam === "marketing") return "marketing";
@@ -541,6 +546,12 @@
         modalTitle.textContent = "Essa é só a primeira parte da sua evolução em Gestão de Projetos.";
         modalCopy.textContent = "A Trilha apresenta parte da metodologia utilizada no MBA com Certificado USP em Gestão de Projetos da FUNDACE, conectando fundamentos acadêmicos às demandas do mercado.";
         modalStrong.innerHTML = "Se quiser conhecer a estrutura, o formato e o investimento do MBA completo, nosso time explica — sem compromisso.";
+      } else if (slug === "gedat") {
+        document.title = "Crie sua senha | Trilha Gestão Estratégica Fundace";
+        backLink.href = "./captacao-gedat.html";
+        modalTitle.textContent = "Essa é só a primeira parte da sua evolução em Gestão Estratégica.";
+        modalCopy.textContent = "A Trilha apresenta parte da abordagem do MBA USP em Gestão Estratégica Baseada em Dados da FUNDACE, conectando estratégia, tecnologia e dados às decisões do dia a dia da organização.";
+        modalStrong.innerHTML = "Se quiser conhecer a estrutura, o formato e o investimento do MBA completo, nosso time explica — sem compromisso.";
       } else if (slug === "gestao") {
         document.title = "Crie sua senha | Trilha Gestão Fundace";
         backLink.href = "./captacao-gestao.html";
@@ -577,7 +588,7 @@
     updateTrailCopy();
 
     if (!emailParam) {
-      const fallbackMap = { gestao: "./captacao-gestao.html", "gestao-projetos": "./captacao-gestao-projetos.html", marketing: "./captacao-marketing.html", "marketing-nova": "./captacao-marketing-nova.html", financas: "./captacao-financas.html", "semana-ia-no-direito": "./captacao-gde.html" };
+      const fallbackMap = { gestao: "./captacao-gestao.html", "gestao-projetos": "./captacao-gestao-projetos.html", gedat: "./captacao-gedat.html", marketing: "./captacao-marketing.html", "marketing-nova": "./captacao-marketing-nova.html", financas: "./captacao-financas.html", "semana-ia-no-direito": "./captacao-gde.html" };
       window.location.href = fallbackMap[trilhaParam] || "./captacao.html";
     }
 
