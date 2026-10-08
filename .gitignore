@@ -4,3 +4,6 @@
 
 .vercel
 supabase/.temp/
+
+# --- padrao minimo garantido na reorganizacao de handover ---
+node_modules

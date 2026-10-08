@@ -659,7 +659,7 @@
 <body>
 
   <header class="topbar">
-    <img src="./Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace FEA-RP USP" class="topbar-logo">
+    <img src="../../assets/Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace FEA-RP USP" class="topbar-logo">
     <a href="#form-fold" class="topbar-cta">Garantir acesso gratuito</a>
   </header>
 
@@ -1171,7 +1171,7 @@
 
         <p class="form-support">
           Dúvidas? <a href="mailto:comunicacao@fundace.org.br">comunicacao@fundace.org.br</a> &nbsp;·&nbsp;
-          Já tem conta? <a href="./login.html">Entrar</a>
+          Já tem conta? <a href="../../login.html">Entrar</a>
         </p>
       </div>
 
@@ -1179,22 +1179,22 @@
   </section>
 
   <footer>
-    <img src="./Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace FEA-RP USP" class="footer-logo">
+    <img src="../../assets/Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace FEA-RP USP" class="footer-logo">
     <p class="footer-text">
       © 2025 Fundace — Fundação para Pesquisa e Desenvolvimento da Administração, Contabilidade e Economia · FEA-RP/USP<br>
       Dúvidas? <a href="mailto:comunicacao@fundace.org.br">comunicacao@fundace.org.br</a>
     </p>
   </footer>
 
-  <script src="./supabase/config.js"></script>
-  <script src="./supabase/tracking.js"></script>
+  <script src="../../supabase/config.js"></script>
+  <script src="../../supabase/tracking.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const { createClient } = supabase;
     const db = createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
 
     db.auth.getSession().then(({ data: { session } }) => {
-      if (session) window.location.href = "./Index.html";
+      if (session) window.location.href = "../../Index.html";
     });
 
     const form      = document.getElementById("register-form");
@@ -1401,7 +1401,7 @@
 
       persistAttribution(email);
 
-      window.location.href = `./cadastrar-senha.html?email=${encodeURIComponent(email)}&nome=${encodeURIComponent(nome)}&trilha=gestao`;
+      window.location.href = `../../cadastrar-senha.html?email=${encodeURIComponent(email)}&nome=${encodeURIComponent(nome)}&trilha=gestao`;
     });
   </script>
 </body>

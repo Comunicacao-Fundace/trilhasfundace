@@ -3,8 +3,9 @@
 ## O que já está pronto
 
 - `vercel.json` com:
-  - `/` abrindo `captacao.html`
-  - `/gestao` abrindo `captacao-gestao.html`
+  - `/` abrindo `trilhas/ifrs/captacao.html`
+  - `/gestao` abrindo `trilhas/gestao/captacao.html`
+  - (cada trilha tem sua própria pasta em `trilhas/<nome>/captacao.html` — ver rewrites completos em `vercel.json`)
   - rotas amigáveis para login, trilha e admin
   - `/admin/trilhas` abrindo a aba Trilhas do painel admin
   - `/api/cursos`, `/api/trilhas/*` e `/api/aulas/*` roteando para a Edge Function `trilhas-api`

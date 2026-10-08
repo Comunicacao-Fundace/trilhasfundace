@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trilha de Gestão Estratégica — Fundace FEA-RP/USP</title>
-  <meta name="description" content="Trilha gratuita da FUNDACE USP: estratégia, tecnologia e dados para decisões mais consistentes. 3 aulas gratuitas com certificado.">
+  <title>Trilha de Gestão de Projetos — Fundace FEA-RP/USP</title>
+  <meta name="description" content="Trilha gratuita da FUNDACE USP: gestão de projetos, IA, Design Thinking e liderança. 3 aulas gravadas com certificado.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -329,14 +329,6 @@
       color: var(--text-primary);
     }
 
-    .learn-head p {
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      margin-top: 18px;
-    }
-
     .learn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 
     .learn-card {
@@ -379,8 +371,25 @@
     }
 
     .learn-card h3 { font-size: 21px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--text-primary); }
-    .learn-card .learn-sub { font-family: var(--font-body); font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
-    .learn-card p.learn-desc { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-top: auto; }
+    .learn-card .learn-sub { font-family: var(--font-body); font-size: 13px; color: var(--text-muted); margin-bottom: 18px; }
+
+    .learn-card ul { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-top: auto; }
+
+    .learn-card ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-family: var(--font-body);
+      font-size: 14px; line-height: 1.55; color: var(--text-secondary);
+    }
+
+    .learn-card ul li::before {
+      content: '';
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+      border-radius: 50%;
+      background: var(--color-yellow-soft);
+      border: 1px solid var(--color-yellow-deep);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 5L4 7.5L8.5 2' stroke='%23B8860A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: 8px 8px; background-position: center; background-repeat: no-repeat;
+    }
 
     @media (max-width: 900px) {
       .learn-section { padding: 80px 24px; }
@@ -452,6 +461,43 @@
 
     @media (max-width: 480px) {
       .audience-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── BENEFITS SECTION (--color-bg) ── */
+    .benefits-section {
+      position: relative;
+      padding: var(--section-pad-block) var(--section-pad-inline);
+      background: var(--color-bg);
+    }
+
+    .benefits-wrap { max-width: 1200px; margin: 0 auto; }
+    .benefits-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+    .benefits-head h2 { font-size: clamp(1.4rem, 2.6vw, 2.1rem); color: var(--text-primary); }
+
+    .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    .benefit-card {
+      padding: 28px 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(13,13,13,0.08);
+      background: var(--color-bg-raised);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .benefit-card:hover { transform: translateY(-4px); border-color: rgba(184,134,10,0.35); box-shadow: var(--shadow-gold-glow); }
+
+    .benefit-card .learn-icon { margin-bottom: 18px; }
+    .benefit-card h3 { font-size: 16px; margin-bottom: 8px; color: var(--text-primary); }
+    .benefit-card p { font-family: var(--font-body); font-size: 13.5px; line-height: 1.6; color: var(--text-muted); }
+
+    @media (max-width: 900px) {
+      .benefits-section { padding: 80px 24px; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .benefits-grid { grid-template-columns: 1fr; }
     }
 
     /* ── REGISTER SECTION (--color-black, alto impacto) ── */
@@ -605,7 +651,6 @@
     .mba-content h2 { font-size: clamp(1.4rem, 2.6vw, 2.1rem); margin-bottom: 18px; color: var(--text-primary); }
     .mba-content .mba-lead { font-family: var(--font-body); font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
     .mba-content p { font-family: var(--font-body); font-size: 16px; line-height: 1.72; color: var(--text-secondary); margin-bottom: 16px; max-width: 520px; }
-    .mba-content p.mba-emphasis { font-weight: 600; color: var(--text-primary); }
 
     .mba-link {
       display: inline-flex; align-items: center; gap: 8px;
@@ -703,7 +748,7 @@
 
   <nav class="nav">
     <div class="logo-wrap">
-      <img class="brand-logo" src="./Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace">
+      <img class="brand-logo" src="../../assets/Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace">
     </div>
   </nav>
 
@@ -715,17 +760,22 @@
         Trilha Gratuita
       </span>
 
-      <h1>Trilha de <em>Gestão Estratégica</em></h1>
+      <h1>Trilha de <em>Gestão de Projetos</em></h1>
 
-      <p class="hero-tagline">Estratégia para um cenário em que mudanças, tecnologia e dados transformam a forma de tomar decisões.</p>
+      <p class="hero-tagline">A gestão de projetos evoluiu. Você está acompanhando essa transformação?</p>
 
-      <p class="subhead">Acesse 3 aulas gratuitas e amplie seu olhar sobre alguns dos temas que estão redefinindo a gestão das organizações.</p>
+      <p class="subhead">Descubra como Inteligência Artificial, Design Thinking e gestão de processos estão transformando a maneira de conduzir projetos e prepare-se para os desafios da nova era.</p>
 
       <div class="cta-row">
         <a href="#inscricao" class="cta-btn">
-          Quero acessar a trilha gratuita
+          Quero me inscrever na Trilha
           <span class="arrow">→</span>
         </a>
+      </div>
+
+      <div class="hero-note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6a6a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
+        Pré-requisito: graduação completa
       </div>
 
     </div>
@@ -734,10 +784,10 @@
 
 <section class="intro-section reveal">
   <div class="intro-wrap">
-    <h2>O cenário muda. A estratégia também precisa mudar.</h2>
+    <h2>Hoje, liderar projetos vai muito além de controlar prazos e cronogramas.</h2>
     <span class="divider-under"></span>
-    <p style="margin-top: 26px;">É preciso saber interpretar cenários, compreender o impacto da tecnologia, transformar dados em informação relevante e conectar tudo isso aos objetivos da organização.</p>
-    <p>É esse olhar que a Trilha de Gestão Estratégica convida você a desenvolver.</p>
+    <p style="margin-top: 26px;">As organizações buscam profissionais capazes de integrar <strong>estratégia, inovação, tecnologia e pessoas</strong> para entregar resultados com mais eficiência e impacto.</p>
+    <p>Se você quer desenvolver essa visão, a Trilha de Gestão de Projetos foi criada para você.</p>
   </div>
 </section>
 
@@ -745,41 +795,52 @@
   <div class="learn-wrap">
     <div class="learn-head reveal">
       <span class="section-kicker">Conteúdo</span>
-      <h2>3 aulas <em>gratuitas</em></h2>
+      <h2>O que você vai <em>aprender</em></h2>
       <span class="divider-under"></span>
-      <p>A trilha reúne conteúdos que conectam estratégia, tecnologia, dados e comunicação, ajudando você a ampliar sua visão sobre os desafios da gestão contemporânea.</p>
     </div>
 
     <div class="learn-grid">
 
       <div class="learn-card reveal">
         <div class="learn-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"></path><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"></path><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"></path><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"></path><path d="M18 18a4 4 0 0 0 2-7.464"></path><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"></path><path d="M6 18a4 4 0 0 1-2-7.464"></path><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"></path></svg>
         </div>
-        <span class="learn-eyebrow">Aula 01</span>
-        <h3>Gestão Estratégica em Cenários de Mudanças</h3>
-        <p class="learn-sub">Prof. Dr. Alexandre Dias</p>
-        <p class="learn-desc">Como pensar estrategicamente quando o ambiente muda constantemente? Uma reflexão sobre cenários, transformação e os desafios de construir estratégias capazes de responder às mudanças sem perder de vista os objetivos da organização.</p>
+        <span class="learn-eyebrow">Aula 1</span>
+        <h3>Gestão de Projetos na Era da IA</h3>
+        <p class="learn-sub">Cenário atual e caminhos possíveis</p>
+        <ul>
+          <li>Como a IA está transformando a gestão de projetos.</li>
+          <li>Tendências e desafios para os próximos anos.</li>
+          <li>Como utilizar a IA de forma estratégica na gestão.</li>
+        </ul>
       </div>
 
       <div class="learn-card reveal">
         <div class="learn-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
         </div>
-        <span class="learn-eyebrow">Aula 02</span>
-        <h3>Qual o papel da tecnologia na estratégia?</h3>
-        <p class="learn-sub">Prof. Marlon Fernandes</p>
-        <p class="learn-desc">Tecnologia não é apenas ferramenta ou suporte operacional. Nesta aula, você vai refletir sobre como ela influencia modelos de negócio, decisões e a própria construção da estratégia.</p>
+        <span class="learn-eyebrow">Aula 2</span>
+        <h3>Criar e entregar</h3>
+        <p class="learn-sub">A ponte entre Design Thinking e Gestão de Projetos</p>
+        <ul>
+          <li>Como transformar necessidades reais em soluções de valor.</li>
+          <li>Integração entre criatividade, inovação e execução.</li>
+          <li>Estratégias para desenvolver projetos mais eficientes.</li>
+        </ul>
       </div>
 
       <div class="learn-card reveal">
         <div class="learn-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg>
         </div>
-        <span class="learn-eyebrow">Aula 03</span>
-        <h3>Dados, Escuta Ativa e Narrativas Autênticas para Estratégias que Geram Resultado</h3>
-        <p class="learn-sub">Rafael Wirz</p>
-        <p class="learn-desc">Dados ajudam a compreender o cenário. A escuta amplia a compreensão sobre pessoas e contextos. E boas narrativas ajudam a transformar informação em direção. Entenda como esses elementos podem se conectar para apoiar estratégias mais consistentes e orientadas a resultados.</p>
+        <span class="learn-eyebrow">Aula 3</span>
+        <h3>Projetos e Processos</h3>
+        <p class="learn-sub">Competências para liderar a nova era</p>
+        <ul>
+          <li>Competências mais valorizadas no gestor atual.</li>
+          <li>Como conectar processos, inovação e tecnologia.</li>
+          <li>Caminhos para uma atuação mais estratégica.</li>
+        </ul>
       </div>
 
     </div>
@@ -790,37 +851,80 @@
   <div class="audience-wrap">
     <div class="audience-head reveal">
       <span class="section-kicker">Público</span>
-      <h2>Para quem quer tomar decisões com mais <em>visão</em> e menos achismo.</h2>
+      <h2>Para quem é esta <em>Trilha?</em></h2>
       <span class="divider-under"></span>
     </div>
 
-    <p style="margin-top: 26px;">A Trilha de Gestão Estratégica é indicada para profissionais que atuam ou desejam atuar em posições de gestão e liderança, gestores que participam de decisões estratégicas, empreendedores e profissionais que querem desenvolver uma visão mais ampla sobre estratégia, tecnologia e dados.</p>
-    <p>É também uma oportunidade para quem percebe que, diante de cenários cada vez mais complexos, tomar boas decisões exige repertório, análise e capacidade de conectar diferentes perspectivas.</p>
+    <p style="margin-top: 26px;">A Trilha foi desenvolvida para profissionais graduados que desejam evoluir sua atuação e compreender como novas tecnologias e metodologias estão transformando a gestão de projetos.</p>
+    <p>É indicada para quem busca visão estratégica, decisões mais assertivas e projetos com mais inovação, eficiência e geração de valor.</p>
 
     <div class="audience-grid">
       <div class="audience-card reveal">
         <span class="audience-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
         </span>
-        Gestores e líderes de equipes
+        Gestores e líderes de projetos
       </div>
       <div class="audience-card reveal">
         <span class="audience-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
         </span>
-        Gestores em decisões estratégicas
+        Coordenadores e PMOs
       </div>
       <div class="audience-card reveal">
         <span class="audience-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
         </span>
-        Empreendedores
+        Empreendedores e sócios
       </div>
       <div class="audience-card reveal">
         <span class="audience-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
         </span>
-        Visão ampla sobre estratégia, tecnologia e dados
+        Profissionais em transição estratégica
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits-section">
+  <div class="benefits-wrap">
+    <div class="benefits-head reveal">
+      <h2>Por que <em>participar?</em></h2>
+      <span class="divider-under"></span>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <div class="learn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg>
+        </div>
+        <h3>Conteúdo prático e atualizado</h3>
+        <p>Conheça as principais tendências transformando a gestão e entenda como aplicá-las nas organizações.</p>
+      </div>
+
+      <div class="benefit-card reveal">
+        <div class="learn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        </div>
+        <h3>Visão estratégica</h3>
+        <p>Desenvolva uma perspectiva ampla sobre gestão, inovação, processos e tecnologia para decidir com segurança.</p>
+      </div>
+
+      <div class="benefit-card reveal">
+        <div class="learn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
+        </div>
+        <h3>Professores de mercado</h3>
+        <p>Aprenda com especialistas que unem pesquisa, prática profissional e vivência em projetos reais.</p>
+      </div>
+
+      <div class="benefit-card reveal">
+        <div class="learn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8860A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+        </div>
+        <h3>Flexibilidade total</h3>
+        <p>Acesso imediato às aulas gravadas. Assista quando e onde quiser, no seu ritmo.</p>
       </div>
     </div>
   </div>
@@ -831,8 +935,8 @@
 
     <div class="register-copy reveal">
       <span class="section-kicker">Inscrição gratuita</span>
-      <h2 class="reg-headline">Comece agora a <em>Trilha de Gestão Estratégica</em></h2>
-      <p class="reg-sub">Preencha seus dados para ter acesso gratuito às três aulas.</p>
+      <h2 class="reg-headline">Comece agora a <em>Trilha de Gestão de Projetos</em></h2>
+      <p class="reg-sub">Desenvolva uma visão mais estratégica para liderar projetos, pessoas e resultados.</p>
       <div class="reg-badge">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
         Pré-requisito: graduação completa
@@ -907,7 +1011,7 @@
           <div class="msg-box" id="msg-box"></div>
 
           <button type="submit" class="submit-btn" id="submit-btn">
-            Quero acessar a trilha
+            Quero me inscrever na Trilha
             <span>→</span>
           </button>
 
@@ -923,20 +1027,19 @@
 
     <div class="mba-content reveal">
       <span class="section-kicker">MBA com Certificado USP</span>
-      <h2>E se você quiser ir <em>além?</em></h2>
-      <p class="mba-lead">Conheça o MBA USP em Gestão Estratégica Baseada em Dados.</p>
-      <p>A trilha apresenta três perspectivas importantes para a gestão contemporânea. No MBA USP em Gestão Estratégica Baseada em Dados, essa visão é aprofundada em uma formação estruturada para profissionais que precisam transformar estratégia em execução e tomar decisões mais fundamentadas.</p>
-      <p>O programa conecta gestão estratégica, liderança, inteligência de mercado, dados, finanças, execução e governança, desenvolvendo uma visão integrada das diferentes dimensões que influenciam as decisões de uma organização.</p>
-      <p class="mba-emphasis">Menos achismo. Mais gestão baseada em dados.</p>
-      <p>Ao longo do MBA, você desenvolve competências para analisar cenários, estruturar indicadores, interpretar resultados, avaliar decisões e transformar informações em direcionamento estratégico.</p>
-      <a href="https://www.fundace.org.br/curso/mba-ead-em-gestao-estrategica-baseada-em-dados" target="_blank" rel="noreferrer" class="mba-link">Conheça o MBA →</a>
+      <h2>Essa é só a primeira parte da sua evolução em <em>Gestão de Projetos.</em></h2>
+      <p class="mba-lead">Conheça a abordagem do MBA com Certificado USP em Gestão de Projetos.</p>
+      <p>A Trilha apresenta parte da metodologia utilizada no MBA com Certificado USP em Gestão de Projetos da FUNDACE, conectando fundamentos acadêmicos às demandas do mercado.</p>
+      <p>É uma oportunidade para conhecer a qualidade do MBA e compreender como a gestão de projetos vem evoluindo para atender aos desafios das organizações.</p>
+      <!-- TODO: substituir "#" pelo link real da página do MBA em Gestão de Projetos assim que disponível -->
+      <a href="#" class="mba-link">Conheça o MBA →</a>
     </div>
 
     <div class="mba-card reveal">
       <div class="mba-card-head">
         <div>
-          <p>Curso online · Certificado USP</p>
-          <strong>MBA USP em Gestão Estratégica Baseada em Dados</strong>
+          <p>Certificação</p>
+          <strong>MBA com Certificado USP</strong>
         </div>
       </div>
       <ul>
@@ -951,12 +1054,12 @@
 </section>
 
 <footer class="site-footer">
-  <img src="Logo Fundace-F-BRANCO (1).png" alt="FUNDACE">
+  <img src="../../assets/Logo Fundace-F-BRANCO (1).png" alt="FUNDACE">
   <span>© 2026 FUNDACE. Todos os direitos reservados.</span>
 </footer>
 
-<script src="./supabase/config.js"></script>
-<script src="./supabase/tracking.js"></script>
+<script src="../../supabase/config.js"></script>
+<script src="../../supabase/tracking.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   // Scroll reveal (fade + translateY ao entrar na viewport)
@@ -982,13 +1085,13 @@
   const db = createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
 
   db.auth.getSession().then(({ data: { session } }) => {
-    if (session) window.location.href = "./Index.html";
+    if (session) window.location.href = "../../Index.html";
   });
 
   const form      = document.getElementById("register-form");
   const submitBtn = document.getElementById("submit-btn");
   const msgBox    = document.getElementById("msg-box");
-  const TRILHA_NOME = "Trilha de Gestão Estratégica";
+  const TRILHA_NOME = "Trilha de Gestão de Projetos";
   const ATTR_STORAGE_KEY = "fundace_trilha_attribution";
   const ATTR_STORAGE_EMAIL_PREFIX = "fundace_trilha_attribution:";
 
@@ -1171,7 +1274,7 @@
     });
 
     submitBtn.disabled = false;
-    submitBtn.textContent = "Quero acessar a trilha";
+    submitBtn.textContent = "Quero me inscrever na Trilha";
 
     if (error) {
       console.error("Erro ao capturar lead:", error);
@@ -1191,7 +1294,7 @@
 
     persistAttribution(email);
 
-    window.location.href = "./cadastrar-senha.html?email=" + encodeURIComponent(email) + "&nome=" + encodeURIComponent(nome) + "&trilha=gedat";
+    window.location.href = "../../cadastrar-senha.html?email=" + encodeURIComponent(email) + "&nome=" + encodeURIComponent(nome) + "&trilha=gestao-projetos";
   });
 </script>
 

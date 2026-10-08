@@ -88,7 +88,7 @@
       z-index: 10;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       padding: 30px 72px;
       max-width: 1200px;
       width: 100%;
@@ -99,7 +99,7 @@
     .logo-wrap {
       display: flex;
       align-items: center;
-      width: clamp(190px, 17vw, 246px);
+      width: clamp(95px, 8.5vw, 123px);
       line-height: 0;
     }
 
@@ -451,7 +451,6 @@
     @media (max-width: 768px) {
       .nav { padding: 22px 24px; }
 
-      /* hero-body vira coluna; hero-left preenche a primeira dobra */
       .hero-body {
         flex-direction: column;
         padding: 28px 24px 0;
@@ -468,7 +467,6 @@
         padding-bottom: 48px;
       }
 
-      /* card aparece como segunda dobra */
       .hero-right {
         display: block;
         width: 100%;
@@ -499,7 +497,7 @@
 
     @media (max-width: 480px) {
       .nav { gap: 14px; }
-      .logo-wrap { width: 154px; flex: 0 0 154px; }
+      .logo-wrap { width: 77px; flex: 0 0 77px; }
     }
 
 /* ── PAIN SECTION ── */
@@ -523,7 +521,6 @@
   align-items: start;
 }
 
-/* h3 agora é o título dominante da seção */
 .pain-left h3 {
   font-size: clamp(22px, 2.6vw, 34px);
   line-height: 1.06;
@@ -542,7 +539,6 @@
   margin-top: 4px;
 }
 
-/* Parágrafo recuado visualmente para criar respiro */
 .pain-left p {
   max-width: 460px;
   font-size: 16px;
@@ -556,7 +552,6 @@
   padding-top: 8px;
 }
 
-/* Itens numerados com divisores — sem box cards */
 .pain-list {
   display: flex;
   flex-direction: column;
@@ -610,7 +605,6 @@
   transform: none;
 }
 
-/* Closing mais sutil — não compete com o h3 */
 .pain-closing {
   max-width: 640px;
   margin: 72px auto 0;
@@ -774,41 +768,18 @@
   color: var(--yellow);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
-  .learn-section {
-    padding: 88px 24px;
-  }
-
-  .learn-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .learn-card {
-    min-height: auto;
-  }
-
-  .learn-number {
-    margin-bottom: 36px;
-  }
+  .learn-section { padding: 88px 24px; }
+  .learn-grid { grid-template-columns: 1fr; }
+  .learn-card { min-height: auto; }
+  .learn-number { margin-bottom: 36px; }
 }
 
 @media (max-width: 480px) {
-  .learn-section {
-    padding: 72px 24px;
-  }
-
-  .learn-head {
-    margin-bottom: 42px;
-  }
-
-  .learn-card {
-    padding: 28px 24px;
-  }
-
-  .learn-close {
-    margin-top: 48px;
-  }
+  .learn-section { padding: 72px 24px; }
+  .learn-head { margin-bottom: 42px; }
+  .learn-card { padding: 28px 24px; }
+  .learn-close { margin-top: 48px; }
 }
 
 /* ── AUDIENCE SECTION ── */
@@ -880,29 +851,15 @@
   color: rgba(255,255,255,0.8);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
-  .audience-section {
-    padding: 88px 24px;
-  }
-
-  .audience-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .audience-head {
-    margin-bottom: 42px;
-  }
+  .audience-section { padding: 88px 24px; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .audience-head { margin-bottom: 42px; }
 }
 
 @media (max-width: 480px) {
-  .audience-section {
-    padding: 72px 24px;
-  }
-
-  .audience-card {
-    padding: 20px;
-  }
+  .audience-section { padding: 72px 24px; }
+  .audience-card { padding: 20px; }
 }
 
 /* ── CLASSES SECTION ── */
@@ -949,7 +906,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 52px; /* card-pad(28) + circle-half(24) */
+  padding-top: 52px;
 }
 
 .class-card {
@@ -1037,34 +994,16 @@
   color: rgba(255,255,255,0.55);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
-  .classes-section {
-    padding: 88px 24px;
-  }
-
-  .classes-track {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .class-connector {
-    display: none;
-  }
+  .classes-section { padding: 88px 24px; }
+  .classes-track { flex-direction: column; gap: 16px; }
+  .class-connector { display: none; }
 }
 
 @media (max-width: 480px) {
-  .classes-section {
-    padding: 72px 24px;
-  }
-
-  .classes-head {
-    margin-bottom: 42px;
-  }
-
-  .class-card {
-    padding: 24px 20px 28px;
-  }
+  .classes-section { padding: 72px 24px; }
+  .classes-head { margin-bottom: 42px; }
+  .class-card { padding: 24px 20px 28px; }
 }
 
 /* ── TEACHERS SECTION ── */
@@ -1169,37 +1108,17 @@
   color: rgba(15,15,15,0.52);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
-  .teachers-section {
-    padding: 88px 24px;
-  }
-
-  .teachers-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .teacher-photo {
-    height: 360px;
-  }
+  .teachers-section { padding: 88px 24px; }
+  .teachers-grid { grid-template-columns: 1fr; }
+  .teacher-photo { height: 360px; }
 }
 
 @media (max-width: 480px) {
-  .teachers-section {
-    padding: 72px 24px;
-  }
-
-  .teachers-head {
-    margin-bottom: 42px;
-  }
-
-  .teacher-photo {
-    height: 300px;
-  }
-
-  .teacher-content {
-    padding: 26px 22px 30px;
-  }
+  .teachers-section { padding: 72px 24px; }
+  .teachers-head { margin-bottom: 42px; }
+  .teacher-photo { height: 300px; }
+  .teacher-content { padding: 26px 22px 30px; }
 }
 
 /* ── INSTITUTION SECTION ── */
@@ -1265,13 +1184,9 @@
   display: block;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .institution-section { padding: 88px 24px; }
-  .institution-wrap {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
+  .institution-wrap { grid-template-columns: 1fr; gap: 40px; }
   .institution-photo { aspect-ratio: 16/9; }
 }
 
@@ -1361,28 +1276,13 @@
 }
 
 @media (max-width: 900px) {
-  .cta-final-section {
-    padding: 56px 24px;
-  }
+  .cta-final-section { padding: 56px 24px; }
+  .mba-section { padding: 88px 24px; }
 }
 
 @media (max-width: 480px) {
-  .cta-final-section {
-    padding: 48px 24px;
-  }
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .mba-section {
-    padding: 88px 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .mba-section {
-    padding: 72px 24px;
-  }
+  .cta-final-section { padding: 48px 24px; }
+  .mba-section { padding: 72px 24px; }
 }
 
 /* ── REGISTER SECTION ── */
@@ -1405,7 +1305,6 @@
   align-items: start;
 }
 
-/* ── Left copy ── */
 .register-copy { padding-top: 12px; }
 
 .reg-headline {
@@ -1918,6 +1817,37 @@
   .modal-body { padding: 22px 20px 28px; }
 }
   </style>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '351038655827396');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=351038655827396&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
+
+  <!-- LinkedIn Insight Tag -->
+  <script type="text/javascript">
+    _linkedin_partner_id = "2618777";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+  </script>
+  <script type="text/javascript">
+    (function(l) {
+      if (!l) { window.lintrk = function(a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName("script")[0];
+      var b = document.createElement("script");
+      b.type = "text/javascript"; b.async = true;
+      b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+      s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
+  </script>
+  <noscript><img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=2618777&fmt=gif" /></noscript>
 </head>
 <body>
 <section class="hero">
@@ -1930,8 +1860,8 @@
     <div class="logo-wrap">
       <img
         class="brand-logo"
-        src="assets/logos/Logo Fundace-USP-FEARP.png"
-        alt="Fundace FEA-RP USP"
+        src="assets/logos/logo-fundace-branco.png"
+        alt="Fundace"
       >
     </div>
   </nav>
@@ -1942,7 +1872,7 @@
     <div class="hero-left">
 
       <!-- Headline -->
-      <h1>Domine as decisões financeiras que impactam <em>resultados reais</em></h1>
+      <h1>Trilha de <em>Finanças</em></h1>
 
       <!-- Subhead -->
       <p class="subhead">
@@ -2196,7 +2126,7 @@
         <div class="teacher-content">
           <span class="teacher-label">Professor</span>
           <h3>Eduardo Mendes</h3>
-          <p>Professor e coordenador de pós-graduação na FUNDACE/USP.</p>
+          <p>Especialista de mercado e professor dos MBAs FUNDACE.</p>
           <button class="prof-link" data-modal="modal-eduardo">
             Ver currículo completo →
           </button>
@@ -2270,7 +2200,7 @@
       <ul class="reg-bullets">
         <li>100% online e gratuito</li>
         <li>3 aulas gravadas — acesso imediato</li>
-        <li>Certificado Fundace FEA-RP/USP</li>
+        <li>Certificado FUNDACE</li>
       </ul>
       <div class="reg-badge">
         <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
@@ -2511,6 +2441,228 @@
 })();
 </script>
 
+<script src="../../supabase/config.js"></script>
+<script src="../../supabase/tracking.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const { createClient } = supabase;
+  const db = createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (session) window.location.href = "../../Index.html";
+  });
+
+  const form      = document.getElementById("register-form");
+  const submitBtn = document.getElementById("submit-btn");
+  const msgBox    = document.getElementById("msg-box");
+  const TRILHA_NOME = "Trilha de Finanças";
+  const ATTR_STORAGE_KEY = "fundace_trilha_attribution";
+  const ATTR_STORAGE_EMAIL_PREFIX = "fundace_trilha_attribution:";
+
+  function normalizePhone(value) {
+    return value.replace(/\D/g, "");
+  }
+
+  function readCookie(name) {
+    const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = document.cookie.match(new RegExp("(?:^|; )" + escapedName + "=([^;]*)"));
+    return match ? decodeURIComponent(match[1]) : "";
+  }
+
+  function mergeAttribution(base, overlay) {
+    const merged = Object.assign({}, base || {});
+    Object.entries(overlay || {}).forEach(function([key, value]) {
+      if (value !== null && value !== undefined && value !== "") {
+        merged[key] = value;
+      }
+    });
+    return merged;
+  }
+
+  function generatePseudoClientId() {
+    return Date.now() + "." + Math.floor(Math.random() * 1e9);
+  }
+
+  function getOrCreateGaClientId() {
+    const gaCookie = readCookie("_ga");
+    if (gaCookie) {
+      const parts = gaCookie.split(".");
+      if (parts.length >= 4) return parts[2] + "." + parts[3];
+    }
+    const storageKey = "fundace_ga_client_id";
+    const existing = localStorage.getItem(storageKey);
+    if (existing) return existing;
+    const generated = generatePseudoClientId();
+    localStorage.setItem(storageKey, generated);
+    return generated;
+  }
+
+  function getOrCreateGaSessionId() {
+    const storageKey = "fundace_ga_session_id";
+    const existing = sessionStorage.getItem(storageKey);
+    if (existing) return existing;
+    const generated = String(Math.floor(Date.now() / 1000));
+    sessionStorage.setItem(storageKey, generated);
+    return generated;
+  }
+
+  function buildDerivedFbc(fbclid) {
+    if (!fbclid) return "";
+    return "fb.1." + Date.now() + "." + fbclid;
+  }
+
+  function buildAttributionSnapshot(overrides) {
+    overrides = overrides || {};
+    const url = new URL(window.location.href);
+    const query = url.searchParams;
+    const stored = (function() {
+      try { return JSON.parse(localStorage.getItem(ATTR_STORAGE_KEY) || "{}"); }
+      catch (e) { return {}; }
+    })();
+
+    const fbclid = overrides.fbclid || query.get("fbclid") || stored.fbclid || "";
+    const fbp = readCookie("_fbp") || stored.fbp || "";
+    const fbc = readCookie("_fbc") || stored.fbc || buildDerivedFbc(fbclid);
+
+    if (fbp) localStorage.setItem("fundace_fbp", fbp);
+    if (fbc) localStorage.setItem("fundace_fbc", fbc);
+
+    return mergeAttribution(stored, Object.assign({
+      utm_source: query.get("utm_source") || "",
+      utm_medium: query.get("utm_medium") || "",
+      utm_campaign: query.get("utm_campaign") || "",
+      utm_term: query.get("utm_term") || "",
+      utm_content: query.get("utm_content") || "",
+      gclid: query.get("gclid") || "",
+      fbclid: fbclid,
+      fbp: fbp,
+      fbc: fbc,
+      landing_page_url: stored.landing_page_url || window.location.href,
+      page_url: window.location.href,
+      referrer_url: document.referrer || stored.referrer_url || "",
+      ga_client_id: getOrCreateGaClientId(),
+      ga_session_id: getOrCreateGaSessionId(),
+      captured_at: new Date().toISOString(),
+    }, overrides));
+  }
+
+  function persistAttribution(email) {
+    email = email || "";
+    const snapshot = buildAttributionSnapshot();
+    localStorage.setItem(ATTR_STORAGE_KEY, JSON.stringify(snapshot));
+    if (email) {
+      localStorage.setItem(ATTR_STORAGE_EMAIL_PREFIX + email.toLowerCase(), JSON.stringify(snapshot));
+    }
+    return snapshot;
+  }
+
+  persistAttribution();
+
+  function showMsg(type, text) {
+    msgBox.className = "msg-box " + type;
+    msgBox.textContent = text;
+    msgBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  async function syncLeadToActiveCampaign(payload) {
+    try {
+      const response = await fetch(window.SUPABASE_CONFIG.url + "/functions/v1/activecampaign-sync-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: window.SUPABASE_CONFIG.anonKey,
+          Authorization: "Bearer " + window.SUPABASE_CONFIG.anonKey
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const result = await response.json().catch(function() { return {}; });
+        console.error("Erro ao sincronizar lead no ActiveCampaign:", result.error || response.statusText);
+      }
+    } catch (error) {
+      console.error("Falha ao chamar integração com ActiveCampaign:", error);
+    }
+  }
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    msgBox.className = "msg-box";
+    msgBox.textContent = "";
+
+    const nome          = document.getElementById("nome").value.trim();
+    const email         = document.getElementById("email").value.trim();
+    const cidade        = document.getElementById("cidade").value.trim();
+    const telefone      = document.getElementById("telefone").value.trim();
+    const area_formacao = document.getElementById("area_formacao").value.trim();
+    const empresa       = document.getElementById("empresa").value.trim();
+    const cargo         = document.getElementById("cargo").value.trim();
+    const formacaoRadio = document.querySelector('input[name="formacao_superior"]:checked');
+    const posRadio      = document.querySelector('input[name="pretende_pos"]:checked');
+
+    if (!formacaoRadio || !nome || !email || !telefone || !area_formacao || !empresa || !cargo || !posRadio) {
+      showMsg("error", "Preencha todos os campos obrigatórios (*).");
+      return;
+    }
+    if (!email.includes("@")) {
+      showMsg("error", "Informe um e-mail válido.");
+      return;
+    }
+    if (normalizePhone(telefone).length < 10) {
+      showMsg("error", "Informe um telefone válido com DDD.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
+    const attribution = buildAttributionSnapshot();
+
+    const { error } = await db.rpc("capture_lead", {
+      p_nome: nome,
+      p_email: email.toLowerCase(),
+      p_cidade: cidade || null,
+      p_telefone: normalizePhone(telefone),
+      p_possui_formacao_superior: formacaoRadio.value === "sim",
+      p_area_formacao: area_formacao,
+      p_empresa: empresa,
+      p_cargo: cargo,
+      p_pretende_pos: posRadio.value,
+      p_nome_trilha: TRILHA_NOME,
+      p_utm_source: attribution.utm_source || null,
+      p_utm_medium: attribution.utm_medium || null,
+      p_utm_campaign: attribution.utm_campaign || null,
+      p_utm_term: attribution.utm_term || null,
+      p_utm_content: attribution.utm_content || null,
+      p_gclid: attribution.gclid || null,
+      p_fbclid: attribution.fbclid || null,
+      p_landing_page_url: attribution.landing_page_url || null,
+      p_referrer_url: attribution.referrer_url || null
+    });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Acessar a trilha gratuitamente";
+
+    if (error) {
+      console.error("Erro ao capturar lead:", error);
+      showMsg("error", "Não foi possível enviar seu cadastro agora. Tente novamente em instantes.");
+      return;
+    }
+
+    if (window.fbq) fbq("track", "Lead");
+    if (window.gtag) gtag("event", "generate_lead");
+    if (window.lintrk) lintrk("track", { conversion_id: 29306913 });
+
+    syncLeadToActiveCampaign({
+      nome: nome,
+      email: email,
+      telefone: normalizePhone(telefone),
+      nome_trilha: TRILHA_NOME
+    });
+
+    persistAttribution(email);
+
+    window.location.href = "../../cadastrar-senha.html?email=" + encodeURIComponent(email) + "&nome=" + encodeURIComponent(nome) + "&trilha=financas";
+  });
+</script>
 
 </body>
 </html>
