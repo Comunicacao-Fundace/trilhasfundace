@@ -80,6 +80,8 @@ const activeCampaignMarketingNovaListId = (Deno.env.get("ACTIVECAMPAIGN_MARKETIN
 const activeCampaignMarketingNovaListName = (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_NAME") ?? "TrilhaMarketingNova").trim();
 const activeCampaignGdeListId = (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_ID") ?? "66").trim();
 const activeCampaignGdeListName = (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_NAME") ?? "TrilhaGDE").trim();
+const activeCampaignGedatListId = (Deno.env.get("ACTIVECAMPAIGN_GEDAT_LIST_ID") ?? "75").trim();
+const activeCampaignGedatListName = (Deno.env.get("ACTIVECAMPAIGN_GEDAT_LIST_NAME") ?? "TrilhaGedat").trim();
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error("SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY são obrigatórios.");
@@ -183,6 +185,10 @@ function isGdeTrail(lead: LeadRow) {
   return trailName.includes("direito") || trailName.includes("gde");
 }
 
+function isGedatTrail(lead: LeadRow) {
+  return normalizeText(cleanString(lead.nome_trilha)).includes("estrategica");
+}
+
 // Lista que dispara a automação "TRILHA MKT" (id 137) no ActiveCampaign —
 // só quem entra aqui recebe a sequência de e-mails antes do SDR ligar.
 const ACTIVECAMPAIGN_SITUACAO_A_LIST_ID = (Deno.env.get("ACTIVECAMPAIGN_SITUACAO_A_LIST_ID") ?? "73").trim();
@@ -265,6 +271,13 @@ function getListConfigForLead(lead: LeadRow) {
     return {
       id: activeCampaignGdeListId,
       name: activeCampaignGdeListName,
+    };
+  }
+
+  if (isGedatTrail(lead)) {
+    return {
+      id: activeCampaignGedatListId,
+      name: activeCampaignGedatListName,
     };
   }
 
