@@ -40,6 +40,11 @@ if (!supabaseUrl || !serviceRoleKey) {
 const PLOOMES_SYNC_ENABLED = false;
 
 const TRILHAS: Record<string, TrilhaConfig> = {
+  "gestao-estrategica-ti": {
+    nome: "Trilha Pocket Gestão Estratégica de TI",
+    acListId: (Deno.env.get("ACTIVECAMPAIGN_GESTAO_TI_LIST_ID") ?? "77").trim(),
+    acListName: (Deno.env.get("ACTIVECAMPAIGN_GESTAO_TI_LIST_NAME") ?? "TrilhaPocketGestaoTI").trim(),
+  },
   "ifrs": {
     nome: "Trilha CONTIFRS",
     acListId: (Deno.env.get("ACTIVECAMPAIGN_LIST_ID") ?? "").trim(),
@@ -156,6 +161,7 @@ function normalizeTrilhaSlug(raw: string) {
   if (TRILHAS[slug]) return slug;
 
   const normalized = slug.normalize("NFD").replace(/[̀-ͯ]/g, "");
+  if (/\bgestao estrategica (?:de|da) ti\b/.test(normalized)) return "gestao-estrategica-ti";
   if (normalized.includes("projetos")) return "gestao-projetos";
   if (normalized.includes("gestao")) return "gestao";
   if (normalized.includes("contifrs") || normalized.includes("ifrs") || normalized.includes("contabilidade")) return "ifrs";

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pocket Classes gratuitas | Gestão Estratégica de TI | FUNDACE USP</title>
+  <meta name="description" content="Da TI operacional à TI estratégica: assista a duas Pocket Classes gratuitas com Prof. Ildeberto Rodello, da FEA-RP/USP. Gestão de TI e Transformação Digital, online e no seu ritmo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --color-bg:#F7F4EC; --color-bg-raised:#F1EDE1; --color-black:#0D0D0D; --color-yellow:#F2B705; --color-yellow-soft:#FCE8A8; --color-yellow-deep:#B8860A; --font-display:"Oswald","Arial Narrow",sans-serif; --font-body:"Archivo","Helvetica Neue",sans-serif; --gradient-gold:linear-gradient(135deg,#B8860A 0%,#F2B705 45%,#FFE27A 65%,#B8860A 100%); --shadow:0 18px 40px -24px rgba(13,13,13,.35); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:24px; }
+    body { margin:0; background:var(--color-bg); color:var(--color-black); font-family:var(--font-body); line-height:1.7; }
+    h1,h2,h3,p { margin:0; }
+    h1,h2,h3 { font-family:var(--font-display); font-weight:500; line-height:1.15; letter-spacing:-.01em; }
+    h1 { font-size:clamp(2.65rem,4.7vw,4.2rem); }
+    h2 { font-size:clamp(2rem,3.4vw,3rem); }
+    h3 { font-size:clamp(1.6rem,2.4vw,2rem); }
+    em { color:var(--color-yellow-deep); }
+    a { color:inherit; }
+    img { display:block; max-width:100%; height:auto; }
+    button,input,select { font:inherit; }
+    button,a,input,select { -webkit-tap-highlight-color:transparent; }
+    :focus-visible { outline:3px solid var(--color-yellow-deep); outline-offset:4px; }
+    .container { width:min(1180px,calc(100% - 64px)); margin-inline:auto; }
+    .section { padding-block:clamp(4rem,7.5vw,6rem); }
+    .kicker { display:block; margin-bottom:20px; font-size:.73rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--color-yellow-deep); }
+    .divider { display:block; height:1px; margin-block:26px; background:linear-gradient(90deg,transparent,var(--color-yellow-deep),transparent); }
+    .cta { display:inline-flex; justify-content:center; align-items:center; gap:22px; padding:17px 25px; border:0; border-radius:8px; background:var(--gradient-gold); color:var(--color-black); font-size:.78rem; font-weight:700; letter-spacing:.055em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:transform .2s ease,box-shadow .2s ease; box-shadow:0 20px 38px -24px rgba(184,134,10,.55); }
+    .cta:hover { transform:translateY(-2px); box-shadow:0 20px 38px -20px rgba(184,134,10,.6); }
+    .cta svg { width:20px; height:20px; flex:none; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-block:26px; }
+    .nav img { width:235px; height:auto; }
+    .nav-right { display:flex; gap:30px; align-items:center; font-size:.8rem; }
+    .nav-right a { text-decoration:none; }
+    .nav-label { border-left:1px solid rgba(13,13,13,.2); padding-left:30px; color:#6a6a6a; }
+    .hero { position:relative; overflow:hidden; }
+    .hero-grid { max-width:1000px; text-align:center; padding-block:54px 72px; }
+    .hero .cta { margin-top:28px; }
+    .badge { display:inline-flex; border:1px solid var(--color-yellow-deep); border-radius:999px; padding:8px 15px; font-size:.7rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:24px; }
+    .hero-question { font-family:var(--font-display); font-size:clamp(1.45rem,2.3vw,2rem); line-height:1.35; margin-top:13px; color:var(--color-yellow-deep); }
+    .hero-lead { font-size:1.02rem; color:#3a3a3a; max-width:64ch; margin:24px auto 0; }
+    .hero-facts { display:flex; justify-content:center; flex-wrap:wrap; gap:8px 16px; margin-top:21px; font-size:.75rem; color:#6a6a6a; }
+    .hero-facts span + span::before { content:""; display:inline-block; height:12px; width:1px; background:var(--color-yellow-deep); margin-right:16px; vertical-align:middle; }
+    .strip { background:var(--color-black); color:#fff; }
+    .strip-content { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-block:22px; }
+    .strip-title { font-family:var(--font-display); font-size:1.35rem; font-weight:400; }
+    .strip-info { color:#b8b5ac; font-size:.78rem; }
+    .strip-info b { color:var(--color-yellow); }
+    .context-grid { display:grid; grid-template-columns:.95fr 1.05fr; gap:85px; align-items:start; }
+    .context-copy p { color:#3a3a3a; margin-bottom:17px; }
+    .context-copy .statement { color:var(--color-black); font-size:1.2rem; font-weight:600; }
+    .context-title h2 { max-width:18ch; }
+    .context-note { margin-top:28px; font-size:.83rem; color:#6a6a6a; }
+    .lessons-section { background:var(--color-bg-raised); }
+    .section-heading { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:34px; }
+    .section-heading p { color:#6a6a6a; font-size:.84rem; }
+    .lesson-grid { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+    .lesson-card { background:var(--color-bg); border:1px solid rgba(13,13,13,.08); border-radius:14px; padding:34px; box-shadow:var(--shadow); }
+    .lesson-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+    .lesson-number { font-family:var(--font-display); font-size:2.5rem; color:var(--color-yellow-deep); line-height:1; }
+    .lesson-duration { font-size:.75rem; color:#6a6a6a; }
+    .lesson-card h3 { margin-bottom:18px; }
+    .lesson-card p { color:#3a3a3a; font-size:.92rem; }
+    .lesson-card .list-label { margin-top:23px; margin-bottom:14px; color:var(--color-black); font-weight:600; }
+    .topic-list { padding:0; margin:0; list-style:none; }
+    .topic-list li { position:relative; padding-left:21px; margin-top:10px; font-size:.85rem; color:#3a3a3a; }
+    .topic-list li::before { content:""; position:absolute; left:0; top:10px; width:6px; height:6px; border-radius:50%; background:var(--color-yellow-deep); }
+    .section-cta { margin-top:35px; text-align:center; }
+    .professor-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:80px; align-items:center; }
+    .professor-photo { position:relative; }
+    .professor-photo img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:14px; filter:brightness(.92) contrast(1.08) saturate(.75) sepia(.12); box-shadow:var(--shadow); }
+    .professor-copy h3 { color:var(--color-yellow-deep); margin-top:22px; }
+    .professor-copy p { color:#3a3a3a; font-size:.95rem; margin-top:18px; }
+    .professor-copy .coordinator { padding-top:20px; font-weight:600; font-size:.86rem; border-top:1px solid rgba(13,13,13,.12); }
+    .register-section { background:var(--color-black); color:#fff; }
+    .register-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:80px; align-items:start; }
+    .register-copy { padding-top:25px; position:sticky; top:30px; }
+    .register-copy .kicker { color:var(--color-yellow); }
+    .register-copy em { color:var(--color-yellow); }
+    .register-copy p { margin-top:22px; color:#b8b5ac; }
+    .register-benefits { list-style:none; margin:32px 0 0; padding:0; }
+    .register-benefits li { display:flex; align-items:center; gap:14px; margin-top:16px; font-size:.85rem; }
+    .register-benefits svg { color:var(--color-yellow); width:20px; height:20px; }
+    .existing-account { margin-top:36px!important; font-size:.8rem; }
+    .existing-account a { color:var(--color-yellow); text-underline-offset:4px; }
+    .form-card { border-radius:14px; padding:34px; background:var(--color-bg); color:var(--color-black); }
+    .form-card h3 { font-size:1.7rem; }
+    .form-sub { color:#6a6a6a; font-size:.8rem; margin-top:8px; margin-bottom:25px; }
+    .form-grid { display:grid; gap:18px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .field label,legend { display:block; padding:0; font-size:.77rem; font-weight:600; margin-bottom:7px; }
+    .field label span,legend span { color:var(--color-yellow-deep); }
+    input:not([type=radio]),select { width:100%; min-height:46px; padding:10px 13px; border:1px solid rgba(13,13,13,.18); border-radius:6px; background:#fff; color:var(--color-black); font-size:.85rem; }
+    input::placeholder { color:#888; }
+    fieldset { border:0; padding:0; margin:0; min-width:0; }
+    .radio-options { display:flex; flex-wrap:wrap; gap:10px 22px; }
+    .radio-options.col { display:grid; gap:10px; }
+    .radio-option { display:flex; align-items:center; gap:8px; font-size:.8rem; cursor:pointer; }
+    input[type=radio] { accent-color:var(--color-yellow-deep); width:16px; height:16px; margin:0; }
+    .form-consent { font-size:.7rem; color:#6a6a6a; line-height:1.6; }
+    .form-consent a { text-underline-offset:3px; }
+    .submit-btn { width:100%; }
+    .submit-btn:disabled { opacity:.6; cursor:wait; transform:none; }
+    .msg-box { display:none; font-size:.82rem; padding:13px; border-radius:6px; line-height:1.6; }
+    .msg-box.error,.msg-box.success { display:block; background:var(--color-yellow-soft); border:1px solid var(--color-yellow-deep); color:var(--color-black); }
+    .mba-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:80px; align-items:center; }
+    .mba-copy p { color:#3a3a3a; margin-top:20px; font-size:.95rem; }
+    .mba-card { padding:35px; background:var(--color-bg-raised); border:1px solid rgba(13,13,13,.08); border-radius:14px; box-shadow:var(--shadow); }
+    .mba-card h3 { margin-bottom:22px; }
+    .mba-facts { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:27px; }
+    .mba-facts span { border:1px solid rgba(184,134,10,.4); padding:5px 10px; border-radius:999px; font-size:.7rem; }
+    .mba-card .cta { width:100%; }
+    .footer { background:var(--color-black); color:#b8b5ac; }
+    .footer-inner { display:flex; gap:20px; align-items:center; justify-content:space-between; padding-block:27px; font-size:.7rem; }
+    .footer img { width:165px; height:auto; }
+    @media(max-width:1000px) { .context-grid,.professor-grid,.register-grid,.mba-grid { gap:40px; } .nav-label { display:none; } .lesson-card { padding:26px; } }
+    @media(max-width:900px) { .hero-grid { padding-top:40px; } h1 { font-size:clamp(2.5rem,5.4vw,3.4rem); } .context-grid,.register-grid,.mba-grid { grid-template-columns:1fr; } .context-title h2 { max-width:none; } .register-copy { position:static; padding-top:0; } .context-note { display:none; } .professor-grid { grid-template-columns:.75fr 1.25fr; gap:32px; } .professor-copy h2 { font-size:2rem; } .strip-content { align-items:start; } }
+    @media(max-width:650px) { .container { width:calc(100% - 40px); } .nav { padding-block:20px; } .nav img { width:185px; } .nav-right { font-size:.73rem; } .hero-grid { padding-block:27px 44px; } h1 { font-size:clamp(2.5rem,9vw,3.2rem); } .hero-question { font-size:1.65rem; } .hero-lead { font-size:.94rem; } .hero .cta { width:100%; font-size:.73rem; gap:12px; } .badge { font-size:.62rem; padding:8px 12px; } .hero-facts { font-size:.7rem; gap:5px 12px; } .hero-facts span + span::before { margin-right:12px; } .strip-content { flex-direction:column; gap:5px; padding-block:20px; } .strip-title { font-size:1.2rem; } .section-heading { display:block; } .section-heading p { margin-top:14px; } .lesson-grid,.professor-grid { grid-template-columns:1fr; } .professor-photo { max-width:320px; } .lesson-card { padding:27px; } .form-card { padding:25px 22px; } .form-row { grid-template-columns:1fr; gap:18px; } .mba-card { padding:27px; } .footer-inner { flex-direction:column; align-items:start; } .section { padding-block:54px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none!important; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav container" aria-label="Navegação principal">
+      <img src="../../assets/Logo Fundace-USP-FEARP-PRETO.png" alt="FUNDACE FEA-RP USP" width="235" height="44">
+      <div class="nav-right"><span class="nav-label">Conhecimento que transforma.</span><a href="../../login.html">Já tenho acesso ↗</a></div>
+    </nav>
+    <div class="hero-grid container">
+      <div>
+        <span class="badge">Pocket Class gratuita · Da TI operacional à TI estratégica</span>
+        <h1>A TI deixou de ser <em>apenas suporte.</em></h1>
+        <p class="hero-question">Você está preparado para o que ela se tornou?</p>
+        <p class="hero-lead">Assista a 2 Pocket Classes gratuitas e entenda como a Gestão de TI e a Transformação Digital estão ampliando o papel dos profissionais de tecnologia dentro das organizações.</p>
+
+        <a href="#inscricao" class="cta">Quero acessar as aulas gratuitamente <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <div class="hero-facts" aria-label="Informações das aulas"><span>2 aulas</span><span>Online e gratuito</span></div>
+      </div>
+    </div>
+  </header>
+  <div class="strip"><div class="strip-content container"><span class="strip-title">Da TI operacional à TI estratégica.</span><span class="strip-info"><b>2 Pocket Classes</b> para ampliar seu olhar sobre a tecnologia.</span></div></div>
+  <main>
+    <section class="section" aria-labelledby="context-title">
+      <div class="context-grid container">
+        <div class="context-title"><span class="kicker">Um novo papel para a TI</span><h2 id="context-title">A Tecnologia mudou. E a <em>gestão de TI também.</em></h2><span class="divider"></span><p class="context-note">Tecnologia. Gestão. Objetivos de negócio.</p></div>
+        <div class="context-copy">
+          <p>Durante muito tempo, a área de TI esteve associada principalmente à infraestrutura, suporte e resolução de problemas técnicos.</p>
+          <p class="statement">Hoje, as organizações esperam mais.</p>
+          <p>Tecnologia passou a fazer parte das decisões sobre processos, investimentos, riscos, dados, inovação e crescimento do negócio.</p>
+          <p>E isso exige profissionais capazes de enxergar além da operação.</p>
+          <p>Nestas Pocket Classes, você vai entender essa mudança e refletir sobre o papel que a TI ocupa, ou deveria ocupar, dentro das organizações.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section lessons-section" id="aulas" aria-labelledby="lessons-title">
+      <div class="container">
+        <div class="section-heading"><div><span class="kicker">O que você vai aprender</span><h2 id="lessons-title">Duas aulas. Uma <em>nova perspectiva.</em></h2></div><p>Online e gratuito · No seu ritmo</p></div>
+        <div class="lesson-grid">
+          <article class="lesson-card">
+            <div class="lesson-top"><span class="lesson-number">01</span><span class="lesson-duration">Aula 1</span></div>
+            <h3>O que é Gestão de TI e por que ela é estratégica?</h3>
+            <p>Entenda como a TI evoluiu de uma atuação predominantemente operacional para assumir responsabilidades cada vez mais estratégicas.</p>
+            <p class="list-label">Você vai refletir sobre:</p>
+            <ul class="topic-list"><li>a evolução do papel da TI nas organizações;</li><li>a diferença entre operação e gestão de TI;</li><li>o alinhamento entre tecnologia e objetivos do negócio;</li><li>infraestrutura, dados, pessoas, processos, finanças e riscos;</li><li>as novas responsabilidades do gestor de TI.</li></ul>
+          </article>
+          <article class="lesson-card">
+            <div class="lesson-top"><span class="lesson-number">02</span><span class="lesson-duration">Aula 2</span></div>
+            <h3>Transformação Digital: muito além da tecnologia</h3>
+            <p>Comprar um novo sistema ou digitalizar um processo significa transformar uma organização?</p>
+            <p style="margin-top:14px">Nesta aula, você vai entender por que a verdadeira Transformação Digital exige muito mais do que novas ferramentas.</p>
+            <p class="list-label">Você vai conhecer:</p>
+            <ul class="topic-list"><li>a diferença entre digitalização, digitização e Transformação Digital;</li><li>os quatro pilares do sucesso digital: pessoas, processos, tecnologia e dados;</li><li>a evolução da TI tradicional para a TI estratégica;</li><li>os principais desafios da transformação nas organizações;</li><li>a importância de conectar TI e objetivos de negócio.</li></ul>
+          </article>
+        </div>
+        <div class="section-cta"><a href="#inscricao" class="cta">Quero assistir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="professor-title">
+      <div class="professor-grid container">
+        <div class="professor-photo"><img src="/trilhas/gestao-estrategica-ti/prof-ildeberto-rodello.png" alt="Prof. Ildeberto Rodello, professor da FEA-RP/USP" width="572" height="572" loading="lazy"></div>
+        <div class="professor-copy">
+          <span class="kicker">Quem conduz as Pocket Classes</span>
+          <h2 id="professor-title">Aprenda com quem vive e ensina <em>Gestão de TI</em></h2>
+          <h3>Prof. Ildeberto Rodello</h3>
+          <p>Professor da FEA-RP/USP e pesquisador com ampla experiência no ensino superior e atuação nas áreas de Tecnologia da Informação e Sistemas de Informação. Desenvolve pesquisas relacionadas à tomada de decisão orientada por dados e ao desenvolvimento de soluções em Realidade Virtual e Aumentada. Ao longo de sua trajetória acadêmica, participou de diversos projetos de pesquisa e possui trabalhos publicados em congressos e periódicos científicos.</p>
+          <p class="coordinator">Coordenador do MBA USP Gestão Estratégica da Tecnologia da Informação</p>
+        </div>
+      </div>
+    </section>
+    <section class="section register-section" id="inscricao" aria-labelledby="register-title">
+      <div class="register-grid container">
+        <div class="register-copy">
+          <span class="kicker">Inscrição gratuita</span>
+          <h2 id="register-title">Da operação à estratégia. <em>Comece pelas aulas.</em></h2>
+          <p>Preencha seus dados para acessar as duas Pocket Classes gratuitamente.</p>
+          <ul class="register-benefits">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>2 aulas com Prof. Ildeberto Rodello</li>
+
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Online e gratuito</li>
+          </ul>
+          <p class="existing-account">Já tem uma conta? <a href="../../login.html">Acesse a área de alunos</a>.</p>
+        </div>
+        <div class="form-card">
+          <h3>Quero acessar as aulas</h3><p class="form-sub">Após o cadastro, você poderá criar sua senha de acesso.</p>
+          <form id="register-form" class="form-grid" novalidate>
+            <fieldset><legend>Possui formação superior? <span>*</span></legend><div class="radio-options"><label class="radio-option"><input type="radio" name="formacao_superior" value="sim" required> Sim</label><label class="radio-option"><input type="radio" name="formacao_superior" value="nao"> Não</label></div></fieldset>
+            <div class="field"><label for="nome">Nome <span>*</span></label><input id="nome" name="nome" type="text" placeholder="Seu nome completo" autocomplete="name" required></div>
+            <div class="form-row"><div class="field"><label for="email">E-mail <span>*</span></label><input id="email" name="email" type="email" placeholder="seu@empresa.com" autocomplete="email" required></div><div class="field"><label for="telefone">WhatsApp <span>*</span></label><input id="telefone" name="telefone" type="tel" placeholder="(11) 90000-0000" autocomplete="tel" inputmode="tel" required></div></div>
+            <div class="field"><label for="area_formacao">Área de formação <span>*</span></label><select id="area_formacao" name="area_formacao" required><option value="" disabled selected>Selecione sua área</option><option>Tecnologia da Informação</option><option>Ciência da Computação</option><option>Sistemas de Informação</option><option>Engenharia</option><option>Administração</option><option>Contabilidade</option><option>Economia</option><option>Finanças</option><option>Direito</option><option>Outra</option></select></div>
+            <div class="form-row"><div class="field"><label for="empresa">Empresa <span>*</span></label><input id="empresa" name="empresa" type="text" placeholder="Empresa ou situação profissional" autocomplete="organization" required></div><div class="field"><label for="cargo">Cargo <span>*</span></label><input id="cargo" name="cargo" type="text" placeholder="Seu cargo ou ocupação" autocomplete="organization-title" required></div></div>
+            <fieldset><legend>Pretende fazer uma pós-graduação ou MBA? <span>*</span></legend><div class="radio-options col"><label class="radio-option"><input type="radio" name="pretende_pos" value="sim_agora" required> Sim, imediatamente</label><label class="radio-option"><input type="radio" name="pretende_pos" value="sim_depois"> Sim, mas não agora</label><label class="radio-option"><input type="radio" name="pretende_pos" value="nao"> Não</label></div></fieldset>
+            <p class="form-consent">Ao se inscrever, você concorda em receber comunicações da FUNDACE. Consulte nossa <a href="https://www.fundace.org.br/politica_privacidade" target="_blank" rel="noopener noreferrer">Política de Privacidade</a>.</p>
+            <div class="msg-box" id="msg-box" role="status" aria-live="polite"></div>
+            <button type="submit" class="cta submit-btn" id="submit-btn">Quero acessar as aulas gratuitamente <span aria-hidden="true">→</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="mba-title">
+      <div class="mba-grid container">
+        <div class="mba-copy">
+          <span class="kicker">O próximo passo</span><h2 id="mba-title">Quer ir <em>além?</em></h2>
+          <p>As Pocket Classes apresentam alguns dos desafios de quem precisa enxergar a tecnologia de forma cada vez mais estratégica.</p>
+          <p>No MBA USP Gestão Estratégica da Tecnologia da Informação, essa discussão se aprofunda em uma formação voltada a profissionais que querem ampliar sua capacidade de conectar tecnologia, gestão e objetivos de negócio.</p>
+        </div>
+        <div class="mba-card">
+          <span class="kicker">MBA USP</span><h3>MBA USP Gestão Estratégica da Tecnologia da Informação</h3>
+          <div class="mba-facts"><span>EAD</span><span>Aulas ao vivo</span><span>Certificação USP</span></div>
+          <a class="cta" href="https://www.fundace.org.br/curso/mba-ead-gestao-estrategica-da-tecnologia-da-informacao" target="_blank" rel="noopener noreferrer">Conheça o MBA <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="footer-inner container"><img src="../../assets/Logo Fundace-F-BRANCO (1).png" alt="FUNDACE" width="165" height="42"><span>© 2026 FUNDACE. Todos os direitos reservados.</span></div></footer>
+  <script src="../../supabase/config.js"></script>
+  <script src="../../supabase/tracking.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8"></script>
+  <script>
+  const { createClient } = supabase;
+  const db = createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+
+
+  const form      = document.getElementById("register-form");
+  const submitBtn = document.getElementById("submit-btn");
+  const msgBox    = document.getElementById("msg-box");
+  const TRILHA_NOME = "Trilha Pocket Gestão Estratégica de TI";
+  const ATTR_STORAGE_KEY = "fundace_trilha_attribution";
+  const ATTR_STORAGE_EMAIL_PREFIX = "fundace_trilha_attribution:";
+
+  function normalizePhone(value) {
+    return value.replace(/\D/g, "");
+  }
+
+  function readCookie(name) {
+    const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = document.cookie.match(new RegExp("(?:^|; )" + escapedName + "=([^;]*)"));
+    return match ? decodeURIComponent(match[1]) : "";
+  }
+
+  function mergeAttribution(base, overlay) {
+    const merged = Object.assign({}, base || {});
+    Object.entries(overlay || {}).forEach(function([key, value]) {
+      if (value !== null && value !== undefined && value !== "") {
+        merged[key] = value;
+      }
+    });
+    return merged;
+  }
+
+  function generatePseudoClientId() {
+    return Date.now() + "." + Math.floor(Math.random() * 1e9);
+  }
+
+  function getOrCreateGaClientId() {
+    const gaCookie = readCookie("_ga");
+    if (gaCookie) {
+      const parts = gaCookie.split(".");
+      if (parts.length >= 4) return parts[2] + "." + parts[3];
+    }
+    const storageKey = "fundace_ga_client_id";
+    const existing = localStorage.getItem(storageKey);
+    if (existing) return existing;
+    const generated = generatePseudoClientId();
+    localStorage.setItem(storageKey, generated);
+    return generated;
+  }
+
+  function getOrCreateGaSessionId() {
+    const storageKey = "fundace_ga_session_id";
+    const existing = sessionStorage.getItem(storageKey);
+    if (existing) return existing;
+    const generated = String(Math.floor(Date.now() / 1000));
+    sessionStorage.setItem(storageKey, generated);
+    return generated;
+  }
+
+  function buildDerivedFbc(fbclid) {
+    if (!fbclid) return "";
+    return "fb.1." + Date.now() + "." + fbclid;
+  }
+
+  function buildAttributionSnapshot(overrides) {
+    overrides = overrides || {};
+    const url = new URL(window.location.href);
+    const query = url.searchParams;
+    const stored = (function() {
+      try { return JSON.parse(localStorage.getItem(ATTR_STORAGE_KEY) || "{}"); }
+      catch (e) { return {}; }
+    })();
+
+    const fbclid = overrides.fbclid || query.get("fbclid") || stored.fbclid || "";
+    const fbp = readCookie("_fbp") || stored.fbp || "";
+    const fbc = readCookie("_fbc") || stored.fbc || buildDerivedFbc(fbclid);
+
+    if (fbp) localStorage.setItem("fundace_fbp", fbp);
+    if (fbc) localStorage.setItem("fundace_fbc", fbc);
+
+    return mergeAttribution(stored, Object.assign({
+      utm_source: query.get("utm_source") || "",
+      utm_medium: query.get("utm_medium") || "",
+      utm_campaign: query.get("utm_campaign") || "",
+      utm_term: query.get("utm_term") || "",
+      utm_content: query.get("utm_content") || "",
+      gclid: query.get("gclid") || "",
+      fbclid: fbclid,
+      fbp: fbp,
+      fbc: fbc,
+      landing_page_url: stored.landing_page_url || window.location.href,
+      page_url: window.location.href,
+      referrer_url: document.referrer || stored.referrer_url || "",
+      ga_client_id: getOrCreateGaClientId(),
+      ga_session_id: getOrCreateGaSessionId(),
+      captured_at: new Date().toISOString(),
+    }, overrides));
+  }
+
+  function persistAttribution(email) {
+    email = email || "";
+    const snapshot = buildAttributionSnapshot();
+    localStorage.setItem(ATTR_STORAGE_KEY, JSON.stringify(snapshot));
+    if (email) {
+      localStorage.setItem(ATTR_STORAGE_EMAIL_PREFIX + email.toLowerCase(), JSON.stringify(snapshot));
+    }
+    return snapshot;
+  }
+
+  persistAttribution();
+
+  function showMsg(type, text) {
+    msgBox.className = "msg-box " + type;
+    msgBox.textContent = text;
+    msgBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  async function syncLeadToActiveCampaign(payload) {
+    try {
+      const response = await fetch(window.SUPABASE_CONFIG.url + "/functions/v1/activecampaign-sync-lead", {
+        method: "POST",
+        signal: AbortSignal.timeout(8000),
+        headers: {
+          "Content-Type": "application/json",
+          apikey: window.SUPABASE_CONFIG.anonKey,
+          Authorization: "Bearer " + window.SUPABASE_CONFIG.anonKey
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const result = await response.json().catch(function() { return {}; });
+        console.error("Erro ao sincronizar lead no ActiveCampaign:", result.error || response.statusText);
+      }
+    } catch (error) {
+      console.error("Falha ao chamar integração com ActiveCampaign:", error);
+    }
+  }
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    msgBox.className = "msg-box";
+    msgBox.textContent = "";
+
+    if (!form.reportValidity()) return;
+
+    const nome          = document.getElementById("nome").value.trim();
+    const email         = document.getElementById("email").value.trim();
+    const telefone      = document.getElementById("telefone").value.trim();
+    const area_formacao = document.getElementById("area_formacao").value.trim();
+    const empresa       = document.getElementById("empresa").value.trim();
+    const cargo         = document.getElementById("cargo").value.trim();
+    const formacaoRadio = document.querySelector('input[name="formacao_superior"]:checked');
+    const posRadio      = document.querySelector('input[name="pretende_pos"]:checked');
+
+    if (!formacaoRadio || !nome || !email || !telefone || !area_formacao || !empresa || !cargo || !posRadio) {
+      showMsg("error", "Preencha todos os campos obrigatórios (*).");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showMsg("error", "Informe um e-mail válido.");
+      return;
+    }
+    if (normalizePhone(telefone).length < 10 || normalizePhone(telefone).length > 13) {
+      showMsg("error", "Informe um telefone válido com DDD.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
+    const attribution = buildAttributionSnapshot();
+
+    try {
+      const { error } = await db.rpc("capture_lead", {
+        p_nome: nome,
+        p_email: email.toLowerCase(),
+        p_cidade: null,
+        p_telefone: normalizePhone(telefone),
+        p_possui_formacao_superior: formacaoRadio.value === "sim",
+        p_area_formacao: area_formacao,
+        p_empresa: empresa,
+        p_cargo: cargo,
+        p_pretende_pos: posRadio.value,
+        p_nome_trilha: TRILHA_NOME,
+        p_utm_source: attribution.utm_source || null,
+        p_utm_medium: attribution.utm_medium || null,
+        p_utm_campaign: attribution.utm_campaign || null,
+        p_utm_term: attribution.utm_term || null,
+        p_utm_content: attribution.utm_content || null,
+        p_gclid: attribution.gclid || null,
+        p_fbclid: attribution.fbclid || null,
+        p_landing_page_url: attribution.landing_page_url || null,
+        p_referrer_url: attribution.referrer_url || null
+      });
+
+
+      if (error) {
+        console.error("Erro ao capturar lead:", error);
+        showMsg("error", "Não foi possível enviar seu cadastro agora. Tente novamente em instantes.");
+        return;
+      }
+
+      if (window.fbq) fbq("track", "Lead");
+      if (window.gtag) gtag("event", "generate_lead");
+
+      await syncLeadToActiveCampaign({
+        nome: nome,
+        email: email,
+        telefone: normalizePhone(telefone),
+        nome_trilha: TRILHA_NOME
+      });
+
+      persistAttribution(email);
+
+      window.location.href = "../../cadastrar-senha.html?email=" + encodeURIComponent(email) + "&nome=" + encodeURIComponent(nome) + "&trilha=gestao-estrategica-ti";
+    } catch (error) {
+      console.error("Falha ao enviar cadastro:", error);
+      showMsg("error", "Não foi possível enviar seu cadastro agora. Tente novamente em instantes.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Quero acessar as aulas gratuitamente";
+    }
+  });
+  </script>
+</body>
+</html>

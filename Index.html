@@ -1060,6 +1060,50 @@
           }
         ]
       },
+      "gestao-estrategica-ti": {
+        id: "gestao-estrategica-ti",
+        title: "Trilha Pocket Gestão Estratégica de TI",
+        subtitle: "Trilha Pocket Gestão Estratégica de TI",
+        description: "Entenda como a Gestão de TI e a Transformação Digital estão ampliando o papel dos profissionais de tecnologia nas organizações. Duas Pocket Classes gratuitas com Prof. Ildeberto Rodello.",
+        pill: "2 aulas",
+        ctaUrl: null,
+        allowSelfEnroll: true,
+        certificateSlug: "gestao-estrategica-ti",
+        lessons: [
+          {
+            id: "gestao-estrategica-ti-1",
+            title: "O que é Gestão de TI e por que ela é estratégica?",
+            duration: "Aproximadamente 15 min",
+            level: "Gestão Estratégica de TI",
+            teacher: "Prof. Ildeberto Rodello",
+            videoUrl: "https://youtu.be/Yu-zeB2NvUE",
+            eyebrow: "Aula 1 · liberada",
+            highlights: [
+              "A evolução do papel da TI nas organizações.",
+              "A diferença entre operação e gestão de TI.",
+              "O alinhamento entre tecnologia e objetivos do negócio.",
+              "Infraestrutura, dados, pessoas, processos, finanças e riscos.",
+              "As novas responsabilidades do gestor de TI."
+            ]
+          },
+          {
+            id: "gestao-estrategica-ti-2",
+            title: "Transformação Digital: muito além da tecnologia",
+            duration: "Aproximadamente 15 min",
+            level: "Gestão Estratégica de TI",
+            teacher: "Prof. Ildeberto Rodello",
+            videoUrl: "https://youtu.be/UonIrUBZmMM",
+            eyebrow: "Aula 2 · Encerramento da trilha",
+            highlights: [
+              "A diferença entre digitalização, digitização e Transformação Digital.",
+              "Os quatro pilares do sucesso digital: pessoas, processos, tecnologia e dados.",
+              "A evolução da TI tradicional para a TI estratégica.",
+              "Os principais desafios da transformação nas organizações.",
+              "A importância de conectar TI e objetivos de negócio."
+            ]
+          }
+        ]
+      },
       financas: {
         id: "financas",
         title: "Trilha de Finanças",
@@ -1795,6 +1839,7 @@
       const raw = String(value || "").trim().toLowerCase();
       if (courses[raw]) return raw;
       const normalized = normalizePlain(raw);
+      if (/\bgestao estrategica (?:de|da) ti\b/.test(normalized)) return "gestao-estrategica-ti";
       if (normalized.includes("projetos")) return "gestao-projetos";
       if (normalized.includes("estrategica")) return "gedat";
       if (normalized.includes("gestao")) return "gestao";

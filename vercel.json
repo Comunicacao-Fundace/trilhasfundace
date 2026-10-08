@@ -21,6 +21,7 @@
     { "source": "/financas", "destination": "/trilhas/financas/captacao.html" },
     { "source": "/gde", "destination": "/trilhas/gde/captacao.html" },
     { "source": "/direito", "destination": "/trilhas/gde/captacao.html" },
+    { "source": "/gestao-estrategica-ti", "destination": "/trilhas/gestao-estrategica-ti/captacao.html" },
     { "source": "/gedat", "destination": "/trilhas/gedat/captacao.html" },
     { "source": "/api/cursos", "destination": "https://hasptpxcyavfdzxtwpws.supabase.co/functions/v1/trilhas-api/cursos" },
     { "source": "/api/cursos/:path*", "destination": "https://hasptpxcyavfdzxtwpws.supabase.co/functions/v1/trilhas-api/cursos/:path*" },

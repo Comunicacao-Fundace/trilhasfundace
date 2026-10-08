@@ -501,11 +501,16 @@
       return trailName.includes("direito") || trailName.includes("gde");
     }
 
+    function isGestaoTiTrailName(value) {
+      return /\bgestao estrategica (?:de|da) ti\b/.test(normalizeText(value));
+    }
+
     function isGedatTrailName(value) {
       return normalizeText(value).includes("estrategica");
     }
 
     function currentTrailSlug(context = offerState.leadContext) {
+      if (isGestaoTiTrailName(context?.nome_trilha) || trilhaParam === "gestao-estrategica-ti") return "gestao-estrategica-ti";
       if (isGestaoProjetosTrailName(context?.nome_trilha) || trilhaParam === "gestao-projetos") return "gestao-projetos";
       if (isGedatTrailName(context?.nome_trilha) || trilhaParam === "gedat") return "gedat";
       if (isGestaoTrailName(context?.nome_trilha) || trilhaParam === "gestao") return "gestao";
@@ -528,7 +533,13 @@
       mbaSingleFooter.hidden = !isMarketingNova;
       mbaCloseX.hidden = !isMarketingNova;
 
-      if (slug === "marketing-nova") {
+      if (slug === "gestao-estrategica-ti") {
+        document.title = "Crie sua senha | Pocket Gestão Estratégica de TI Fundace";
+        backLink.href = "./trilhas/gestao-estrategica-ti/captacao.html";
+        modalTitle.textContent = "Quer ir além das Pocket Classes?";
+        modalCopy.textContent = "No MBA USP Gestão Estratégica da Tecnologia da Informação, essa discussão se aprofunda em uma formação voltada a profissionais que querem ampliar sua capacidade de conectar tecnologia, gestão e objetivos de negócio.";
+        modalStrong.textContent = "Se quiser conhecer a estrutura, o formato e o investimento do MBA completo, nosso time explica — sem compromisso.";
+      } else if (slug === "marketing-nova") {
         document.title = "Crie sua senha | Trilha Marketing Fundace";
         backLink.href = "./trilhas/marketing-nova/captacao.html";
         modalTitle.textContent = "A trilha é o começo. O próximo passo pode transformar sua carreira em marketing.";
@@ -588,7 +599,7 @@
     updateTrailCopy();
 
     if (!emailParam) {
-      const fallbackMap = { gestao: "./trilhas/gestao/captacao.html", "gestao-projetos": "./trilhas/gestao-projetos/captacao.html", gedat: "./trilhas/gedat/captacao.html", marketing: "./trilhas/marketing/captacao.html", "marketing-nova": "./trilhas/marketing-nova/captacao.html", financas: "./trilhas/financas/captacao.html", "semana-ia-no-direito": "./trilhas/gde/captacao.html" };
+      const fallbackMap = { "gestao-estrategica-ti": "./trilhas/gestao-estrategica-ti/captacao.html", gestao: "./trilhas/gestao/captacao.html", "gestao-projetos": "./trilhas/gestao-projetos/captacao.html", gedat: "./trilhas/gedat/captacao.html", marketing: "./trilhas/marketing/captacao.html", "marketing-nova": "./trilhas/marketing-nova/captacao.html", financas: "./trilhas/financas/captacao.html", "semana-ia-no-direito": "./trilhas/gde/captacao.html" };
       window.location.href = fallbackMap[trilhaParam] || "./trilhas/ifrs/captacao.html";
     }
 

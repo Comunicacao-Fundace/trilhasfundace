@@ -80,6 +80,8 @@ const activeCampaignMarketingNovaListId = (Deno.env.get("ACTIVECAMPAIGN_MARKETIN
 const activeCampaignMarketingNovaListName = (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_NAME") ?? "TrilhaMarketingNova").trim();
 const activeCampaignGdeListId = (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_ID") ?? "66").trim();
 const activeCampaignGdeListName = (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_NAME") ?? "TrilhaGDE").trim();
+const activeCampaignGestaoTiListId = (Deno.env.get("ACTIVECAMPAIGN_GESTAO_TI_LIST_ID") ?? "77").trim();
+const activeCampaignGestaoTiListName = (Deno.env.get("ACTIVECAMPAIGN_GESTAO_TI_LIST_NAME") ?? "TrilhaPocketGestaoTI").trim();
 const activeCampaignGedatListId = (Deno.env.get("ACTIVECAMPAIGN_GEDAT_LIST_ID") ?? "75").trim();
 const activeCampaignGedatListName = (Deno.env.get("ACTIVECAMPAIGN_GEDAT_LIST_NAME") ?? "TrilhaGedat").trim();
 
@@ -185,8 +187,12 @@ function isGdeTrail(lead: LeadRow) {
   return trailName.includes("direito") || trailName.includes("gde");
 }
 
+function isGestaoTiTrail(lead: LeadRow) {
+  return /\bgestao estrategica (?:de|da) ti\b/.test(normalizeText(cleanString(lead.nome_trilha)));
+}
+
 function isGedatTrail(lead: LeadRow) {
-  return normalizeText(cleanString(lead.nome_trilha)).includes("estrategica");
+  return !isGestaoTiTrail(lead) && normalizeText(cleanString(lead.nome_trilha)).includes("estrategica");
 }
 
 // Lista que dispara a automação "TRILHA MKT" (id 137) no ActiveCampaign —
@@ -267,6 +273,10 @@ async function resolveListId(listConfig: { id: string; name: string }) {
 }
 
 function getListConfigForLead(lead: LeadRow) {
+  if (isGestaoTiTrail(lead)) {
+    return { id: activeCampaignGestaoTiListId, name: activeCampaignGestaoTiListName };
+  }
+
   if (isGdeTrail(lead)) {
     return {
       id: activeCampaignGdeListId,
