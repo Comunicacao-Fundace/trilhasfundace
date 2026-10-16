@@ -20,6 +20,7 @@ Identificador da trilha (`trilha_slug`) = o `id` do curso no player: id fixo das
 
 - **Formulário legado ou cadastro do hub:** trigger em `public.leads` (`leads_registrar_historico`). O `capture_lead` não muda. Se o trigger falhar, o formulário segue funcionando (só gera WARNING no log do Postgres).
 - **Mais uma trilha para quem já tem cadastro (hub ou botão do player):** Edge Function `trilha-self-enroll`.
+- **Convites por link de senha (`scripts/gerar-convites-trilha.mjs`):** o script grava a tag com origem `admin` depois de matricular cada aluno.
 - **Histórico anterior à implantação:** `select * from public.hub_backfill_inscricoes(true);`.
 
 A tag recebe o `user_id` somente quando o e-mail da conta está confirmado no Auth. Nunca há vinculação por nome.

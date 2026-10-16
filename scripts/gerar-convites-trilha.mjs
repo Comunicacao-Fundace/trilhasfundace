@@ -73,6 +73,36 @@ async function adminFetch(path, options = {}) {
   return body;
 }
 
+// Grava a tag da trilha em public.trilha_inscricoes (idempotente). Se a
+// migration do hub ainda não estiver aplicada, avisa uma vez e segue.
+let avisouTagAusente = false;
+async function registrarTag(email, userId, trilha) {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/registrar_inscricao_trilha`, {
+    method: "POST",
+    headers: {
+      apikey: SERVICE_ROLE_KEY,
+      Authorization: `Bearer ${SERVICE_ROLE_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      p_email: email,
+      p_trilha: trilha,
+      p_origem: "admin",
+      p_user_id: userId || null,
+      p_evidencia: { fonte: "gerar-convites-trilha" },
+    }),
+  });
+  if (response.status === 404) {
+    if (!avisouTagAusente) console.warn("aviso registrar_inscricao_trilha não existe ainda; tags não gravadas.");
+    avisouTagAusente = true;
+    return;
+  }
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`tag não gravada: ${response.status} ${text.slice(0, 200)}`);
+  }
+}
+
 async function listAllUsers() {
   const byEmail = new Map();
   for (let page = 1; ; page++) {
@@ -151,6 +181,12 @@ async function main() {
           });
           userId = created.id;
         }
+      }
+
+      if (!args.dryRun) {
+        // Conta nova nasce com e-mail confirmado; conta antiga só é vinculada se confirmada.
+        const vinculo = !user || user.email_confirmed_at ? userId : null;
+        await registrarTag(aluno.email, vinculo, trilha);
       }
 
       const link = args.dryRun ? "(dry-run)" : `${SITE_URL}/definir-senha?token=${userId}.${secret}`;
