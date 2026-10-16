@@ -8,6 +8,7 @@
     { "source": "/cadastrar-senha", "destination": "/cadastrar-senha.html" },
     { "source": "/esqueci-senha", "destination": "/esqueci-senha.html" },
     { "source": "/redefinir-senha", "destination": "/redefinir-senha.html" },
+    { "source": "/definir-senha", "destination": "/definir-senha.html" },
     { "source": "/trilha", "destination": "/Index.html" },
     { "source": "/admin/trilhas", "destination": "/admin.html?tab=trilhas" },
     { "source": "/admin/sdr", "destination": "/admin-sdr-marketing.html" },
