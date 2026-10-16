@@ -42,6 +42,9 @@ if (!supabaseUrl || !serviceRoleKey) {
 // Ploomes ate a estrutura de funil/CRM ser revista. Reative trocando para true.
 const PLOOMES_SYNC_ENABLED = false;
 
+const marketingNovaListaPropria =
+  (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_SELF_ENROLL_OWN_LIST") ?? "").trim().toLowerCase() === "true";
+
 const TRILHAS: Record<string, TrilhaConfig> = {
   "gestao-estrategica-ti": {
     nome: "Trilha Pocket Gestão Estratégica de TI",
@@ -79,10 +82,21 @@ const TRILHAS: Record<string, TrilhaConfig> = {
     acListName: (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_NAME") ?? "TrilhaGDE").trim(),
   },
   // Slug da trilha em public.trilhas (o mesmo usado pelo NPS e pelo SDR).
+  // A tag no banco usa a trilha certa; a lista do ActiveCampaign continua a
+  // da Marketing antiga (35), como produção faz hoje, até a revisão das
+  // automações. Lista própria (72): secret
+  // ACTIVECAMPAIGN_MARKETING_NOVA_SELF_ENROLL_OWN_LIST=true.
   "trilha-nova-de-marketing": {
     nome: "Mini Curso Estratégias de Marketing para o Mercado em Transformação",
-    acListId: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_ID") ?? "72").trim(),
-    acListName: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_NAME") ?? "TrilhaMarketingNova").trim(),
+    ...(marketingNovaListaPropria
+      ? {
+        acListId: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_ID") ?? "72").trim(),
+        acListName: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_NAME") ?? "TrilhaMarketingNova").trim(),
+      }
+      : {
+        acListId: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_LIST_ID") ?? "35").trim(),
+        acListName: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_LIST_NAME") ?? "TrilhaMarketing").trim(),
+      }),
   },
   "gedat": {
     nome: "Trilha de Gestão Estratégica",

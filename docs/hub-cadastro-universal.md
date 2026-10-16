@@ -32,8 +32,8 @@ A tag recebe o `user_id` somente quando o e-mail da conta está confirmado no Au
 | `Index.html` | Catálogo estático movido para `supabase/trilhas-estaticas.js` (texto idêntico) | Nenhum |
 | `Index.html` | Trilhas liberadas = regra antiga **+** tags do banco | Quem perdia a trilha anterior ao preencher outro formulário volta a vê-la. Ninguém é bloqueado. |
 | `Index.html` | Certificado gerado por `supabase/certificado.js` com registro e código | Mesmo layout, com uma linha de código de validação. A data passa a ser a da primeira emissão. Se o registro falhar, o PDF sai como antes. |
-| `trilha-self-enroll` | Grava a tag. GEDAT e Marketing Nova corrigidas (antes: "Trilha inválida" e lista 35 no lugar da 72) | Correção |
-| `activecampaign-sync-lead` | Só sincroniza e-mail com envio de formulário nos últimos 30 min. E-mail mascarado nos logs | Formulários seguem iguais. Terceiros não conseguem mais reinscrever leads antigos em listas. |
+| `trilha-self-enroll` | Grava a tag da trilha certa. A lista do ActiveCampaign **não muda** (Marketing Nova continua na 35, como hoje) | Nenhum. Lista própria (72): secret `ACTIVECAMPAIGN_MARKETING_NOVA_SELF_ENROLL_OWN_LIST=true` |
+| `activecampaign-sync-lead` | Só sincroniza e-mail com envio de formulário nos últimos 30 min. E-mail mascarado nos logs. Listas iguais às de hoje (Gestão de TI continua na 75) | Formulários seguem iguais. Terceiros não conseguem mais reinscrever leads antigos em listas. Lista própria de Gestão de TI (77): secret `ACTIVECAMPAIGN_GESTAO_TI_OWN_LIST=true` |
 | `ac-click-webhook` | Segredo opcional (`AC_CLICK_WEBHOOK_REQUIRE_SECRET=true`) | Desligado até a URL do webhook ser atualizada no ActiveCampaign |
 | RPCs `get_lead_offer_context`, `record_lead_offer_response` | Só o dono logado, um admin ou quem enviou o formulário nas últimas 2 h | `cadastrar-senha.html` continua funcionando |
 | RPCs de NPS | Só o próprio aluno logado | Player continua funcionando |

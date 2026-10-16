@@ -138,21 +138,38 @@ begin
   ) on commit drop;
   truncate tmp_backfill_candidatos;
 
+  -- Agrupa primeiro e junta com auth.users por igualdade (usa índice).
+  -- E-mails já chegam em minúsculas: o Auth e o capture_lead normalizam
+  -- (conferido em produção: 0 e-mails fora do padrão).
   insert into tmp_backfill_candidatos
+  with agrupado as (
+    select
+      ev.email::text as email,
+      ev.trilha_slug,
+      coalesce(min(ev.evidencia_em) filter (where ev.fonte <> 'leads.nome_trilha'), min(ev.evidencia_em)) as inscrito_em,
+      bool_and(ev.fonte = 'leads.nome_trilha') as data_aproximada,
+      array_agg(distinct ev.fonte order by ev.fonte) as fontes
+    from tmp_backfill_evidencias ev
+    group by ev.email::text, ev.trilha_slug
+  ),
+  reconhecidas as (
+    select s.slug from public.trilhas_estaticas s
+    union
+    select t.slug from public.trilhas t where t.slug is not null
+  )
   select
-    ev.email,
-    ev.trilha_slug,
-    coalesce(min(ev.evidencia_em) filter (where ev.fonte <> 'leads.nome_trilha'), min(ev.evidencia_em)),
-    bool_and(ev.fonte = 'leads.nome_trilha'),
-    array_agg(distinct ev.fonte order by ev.fonte),
-    (select u.id from auth.users u
-      where lower(u.email) = lower(ev.email::text) and u.email_confirmed_at is not null limit 1),
-    exists (select 1 from public.trilha_inscricoes i
-             where i.lead_email = ev.email and i.trilha_slug = ev.trilha_slug),
-    exists (select 1 from public.trilhas_estaticas s where s.slug = ev.trilha_slug)
-      or exists (select 1 from public.trilhas t where t.slug = ev.trilha_slug)
-  from tmp_backfill_evidencias ev
-  group by ev.email, ev.trilha_slug;
+    a.email::citext,
+    a.trilha_slug,
+    a.inscrito_em,
+    a.data_aproximada,
+    a.fontes,
+    u.id,
+    i.id is not null,
+    r.slug is not null
+  from agrupado a
+  left join auth.users u on u.email = a.email and u.email_confirmed_at is not null
+  left join public.trilha_inscricoes i on i.lead_email = a.email::citext and i.trilha_slug = a.trilha_slug
+  left join reconhecidas r on r.slug = a.trilha_slug;
 
   if p_aplicar then
     for r in select * from tmp_backfill_candidatos c where c.slug_reconhecido loop

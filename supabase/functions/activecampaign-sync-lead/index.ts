@@ -218,7 +218,14 @@ function isGdeTrail(lead: LeadRow) {
   return trailName.includes("direito") || trailName.includes("gde");
 }
 
+// A versão em produção até 2026-10 não tinha esta regra: os leads de Gestão
+// Estratégica de TI caíam na lista do GEDAT. Para não mudar listas sem a
+// revisão das automações, a regra só vale com o secret
+// ACTIVECAMPAIGN_GESTAO_TI_OWN_LIST=true (lista 77).
+const gestaoTiListaPropria = (Deno.env.get("ACTIVECAMPAIGN_GESTAO_TI_OWN_LIST") ?? "").trim().toLowerCase() === "true";
+
 function isGestaoTiTrail(lead: LeadRow) {
+  if (!gestaoTiListaPropria) return false;
   return /\bgestao estrategica (?:de|da) ti\b/.test(normalizeText(cleanString(lead.nome_trilha)));
 }
 

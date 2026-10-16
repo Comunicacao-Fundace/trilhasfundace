@@ -394,7 +394,7 @@ begin
 
     select u.id into v_user_id
       from auth.users u
-     where lower(u.email) = lower(new.email::text)
+     where u.email = lower(btrim(new.email::text))
        and u.email_confirmed_at is not null
      limit 1;
 
