@@ -149,6 +149,30 @@ test("aluna antiga recupera as duas trilhas (inclusive a que o legado sobrescrev
   assert.equal(progresso.length, 9);
 });
 
+test("backfill usa inscricoes_ia_direito (tabela só de produção) quando existe", async () => {
+  const outro = await criarBancoLegado();
+  await outro.exec(`create table public.inscricoes_ia_direito (id bigint generated always as identity primary key,
+    created_at timestamptz not null default now(), nome text, email text);
+    insert into public.inscricoes_ia_direito (nome, email, created_at) values ('Jó', 'JO@example.test', '2026-08-01T00:00:00Z');
+    insert into public.trilhas (nome, descricao, curso_id, status, slug)
+      select 'Semana IA no Direito', '', id, 'publicada', 'semana-ia-no-direito' from public.cursos limit 1;`);
+  await outro.exec(MIGRATION);
+  await outro.exec(BACKFILL);
+  await outro.query("select * from public.hub_backfill_inscricoes(true)");
+  const [tag] = await inscricoesDe(outro, "jo@example.test");
+  assert.equal(tag.trilha_slug, "semana-ia-no-direito");
+  assert.equal(new Date(tag.inscrito_em).toISOString(), "2026-08-01T00:00:00.000Z");
+});
+
+test("aliases encontrados em produção resolvem para os slugs reais", async () => {
+  const { rows } = await db.query(`select v, public.resolver_trilha_slug(v) as slug from unnest(array[
+    'Trilha de Marketing Estratégico', 'marketing', 'Trilha Nova de Marketing', 'trilha-nova-de-marketing',
+    'Semana IA no Direito', 'Trilha de Gestão Estratégica', 'Trilha Pocket Gestão Estratégica de TI']) v`);
+  assert.deepEqual(rows.map(r => r.slug), [
+    "trilha-de-marketing-estrategico", "trilha-de-marketing-estrategico", "trilha-nova-de-marketing", "trilha-nova-de-marketing",
+    "semana-ia-no-direito", "gedat", "gestao-estrategica-ti"]);
+});
+
 test("lead antigo sem conta tem a tag reconstruída, sem user_id", async () => {
   const [inscricao] = await inscricoesDe(db, EMAILS.bruno);
   assert.equal(inscricao.trilha_slug, "gedat");

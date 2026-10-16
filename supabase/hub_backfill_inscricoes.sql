@@ -13,6 +13,7 @@
 --   user_lesson_progress         -> aulas concluídas, convertidas em trilha
 --   trilha_nps_respostas         -> trilha da pesquisa de satisfação
 --   sdr_contact_triggers         -> trilha do CRM de SDR
+--   inscricoes_ia_direito        -> Semana IA no Direito (se a tabela existir)
 --
 -- Regras:
 --   - nenhuma vinculação por nome; só por e-mail exato (minúsculo, sem espaços);
@@ -102,6 +103,18 @@ begin
     insert into tmp_backfill_evidencias
     select lower(btrim(n.lead_email::text)), public.resolver_trilha_slug(n.trail_slug), 'trilha_nps_respostas', n.created_at
       from public.trilha_nps_respostas n;
+  end if;
+
+  -- Inscrições da Semana IA no Direito gravadas fora de public.leads
+  -- (tabela criada fora deste repositório; usada só se existir).
+  if to_regclass('public.inscricoes_ia_direito') is not null then
+    execute $q$
+      insert into tmp_backfill_evidencias
+      select lower(btrim(d.email)), 'semana-ia-no-direito', 'inscricoes_ia_direito', min(d.created_at)
+        from public.inscricoes_ia_direito d
+       where coalesce(btrim(d.email), '') <> ''
+       group by 1
+    $q$;
   end if;
 
   if v_tem_sdr then

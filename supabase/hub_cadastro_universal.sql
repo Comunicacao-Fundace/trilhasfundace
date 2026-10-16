@@ -93,17 +93,20 @@ insert into public.trilhas_alias (alias, trilha_slug, observacao) values
   ('financas', 'financas', 'slug do cadastro de senha'),
   ('trilha pocket gestão estratégica de ti', 'gestao-estrategica-ti', 'nome_trilha do formulário'),
   ('gestao-estrategica-ti', 'gestao-estrategica-ti', 'slug do cadastro de senha'),
-  ('semana ia no direito', 'semana-ia-no-direito', 'nome_trilha do formulário GDE — VERIFICAR slug em public.trilhas'),
-  ('semana-ia-no-direito', 'semana-ia-no-direito', 'slug do cadastro de senha'),
+  ('semana ia no direito', 'semana-ia-no-direito', 'nome_trilha do formulário GDE'),
+  ('semana-ia-no-direito', 'semana-ia-no-direito', 'slug em public.trilhas'),
   ('gde', 'semana-ia-no-direito', 'nome da pasta da captação'),
-  ('trilha de gestão estratégica', 'gedat', 'nome_trilha do formulário GEDAT — VERIFICAR slug em public.trilhas'),
-  ('gedat', 'gedat', 'slug do cadastro de senha'),
+  ('trilha de gestão estratégica', 'gedat', 'nome_trilha do formulário GEDAT'),
+  ('gedat', 'gedat', 'slug em public.trilhas'),
   ('mini curso estratégias de marketing para o mercado em transformação', 'trilha-nova-de-marketing', 'nome_trilha do formulário — slug usado pelo NPS e SDR'),
+  ('trilha nova de marketing', 'trilha-nova-de-marketing', 'nome_trilha antigo encontrado em produção'),
   ('marketing-nova', 'trilha-nova-de-marketing', 'slug do cadastro de senha'),
-  ('trilha-nova-de-marketing', 'trilha-nova-de-marketing', 'slug em public.trilhas (NPS/SDR)')
+  ('trilha-nova-de-marketing', 'trilha-nova-de-marketing', 'slug em public.trilhas (NPS/SDR)'),
+  ('trilha de marketing estratégico', 'trilha-de-marketing-estrategico', 'nome_trilha do formulário (trilha antiga)'),
+  ('trilha-de-marketing-estrategico', 'trilha-de-marketing-estrategico', 'slug em public.trilhas'),
+  ('marketing', 'trilha-de-marketing-estrategico', 'slug do cadastro de senha')
 on conflict (alias) do nothing;
--- "Trilha de Marketing Estratégico" (antiga) não tem alias fixo: o slug é
--- resolvido por public.trilhas.nome (ver resolver_trilha_slug).
+-- Slugs conferidos em produção em 2026-10-16 (public.trilhas).
 
 create or replace function public.resolver_trilha_slug(p_valor text)
 returns text
