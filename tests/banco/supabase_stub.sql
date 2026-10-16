@@ -7,6 +7,11 @@ create role service_role nologin bypassrls;
 
 create schema if not exists auth;
 
+-- Como no Supabase: pgcrypto instalado no schema "extensions", fora de public.
+create schema if not exists extensions;
+create extension if not exists pgcrypto schema extensions;
+grant usage on schema extensions to anon, authenticated, service_role;
+
 create table auth.users (
   id uuid primary key default gen_random_uuid(),
   email text unique,

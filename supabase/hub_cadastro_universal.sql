@@ -526,11 +526,12 @@ using (user_id = auth.uid() or public.is_admin());
 
 grant select on public.certificados to authenticated;
 
+-- No Supabase o pgcrypto (gen_random_bytes) fica no schema "extensions".
 create or replace function public.gerar_codigo_certificado()
 returns text
 language plpgsql
 volatile
-set search_path = public
+set search_path = public, extensions
 as $$
 declare
   v_alfabeto constant text := 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';

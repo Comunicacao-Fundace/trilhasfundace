@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "hashes": "node banco/calcular_hashes.mjs",
-    "test": "node --test"
+    "test": "node --test \"banco/*.test.mjs\" \"hub/*.test.mjs\"",
+    "e2e:homologacao": "node homologacao/e2e.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.8",
-    "jsdom": "25.0.1"
+    "jsdom": "25.0.1",
+    "@supabase/supabase-js": "2.45.4"
   }
 }

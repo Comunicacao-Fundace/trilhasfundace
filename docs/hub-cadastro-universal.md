@@ -56,6 +56,18 @@ Nada disso foi aplicado em produção. Cada passo depende de autorização.
 8. **Histórico:** `select * from public.hub_backfill_inscricoes(false);` (simulação), revisar slugs não reconhecidos e depois rodar com `true`. Pode ser rodado de novo sem efeito.
 9. **Verificação:** comparar as contagens de `auditoria_somente_leitura.sql` com a linha de base. As tabelas legadas só podem ter crescido pelas gravações normais do período.
 
+### Confirmação de e-mail
+
+Decidido ligar, mas **só depois de configurar SMTP próprio** (Auth → SMTP Settings). Sem isso, o limite de 2 e-mails por hora bloquearia os cadastros do hub e do legado. O hub e o `cadastrar-senha.html` já tratam o caso "verifique seu e-mail".
+
+### Homologação
+
+- Supabase `trilhas-fundace-homologacao`, organização Pro, schema `public` idêntico ao de produção. Comparado item a item: colunas, constraints, índices, policies, RLS, hash das funções, grants e triggers.
+- Site: https://trilhasfundace-homologacao.vercel.app (cópia do site com `config.js` da homologação e pixels de anúncio neutralizados).
+- Edge Functions com secrets **falsos** do ActiveCampaign (endereço `.invalid`).
+- Só dados sintéticos (`@example.test`); o catálogo de trilhas e aulas foi copiado de produção.
+- `cd tests && npm run e2e:homologacao` roda os cenários de ponta a ponta. O script recusa rodar se o ref apontar para produção.
+
 ## Rollback
 
 `supabase/hub_cadastro_universal_rollback.sql`:
@@ -63,6 +75,8 @@ Nada disso foi aplicado em produção. Cada passo depende de autorização.
 - remove o trigger;
 - restaura as 4 RPCs legadas exatamente como no repositório e devolve os grants;
 - **mantém** as tabelas novas e os dados criados depois da implantação.
+
+Envios de formulário feitos **enquanto** o rollback estiver ativo não ganham tag. Ao reaplicar a migration, rode `select * from public.hub_backfill_inscricoes(true);` de novo, e eles são recuperados. Isso foi ensaiado na homologação.
 
 Contas criadas pelo hub continuam válidas no legado: são contas comuns do Supabase Auth com `user_metadata.trilha`, como as do `cadastrar-senha.html`. Para o frontend, basta reverter o deploy na Vercel. As Edge Functions voltam com `supabase functions deploy` a partir do commit anterior. Não há restauração de backup antigo, e nada criado depois da implantação é descartado.
 
