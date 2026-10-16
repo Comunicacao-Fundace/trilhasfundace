@@ -212,7 +212,8 @@ revoke all on function public.trilha_titulo(text) from public, anon, authenticat
 -- ---------------------------------------------------------------------
 create table if not exists public.leads_historico (
   id bigint generated always as identity primary key,
-  lead_id bigint,
+  -- Texto: em produção leads.id é uuid; no repositório, bigint.
+  lead_id text,
   email citext not null,
   operacao text not null,
   origem text not null,
@@ -385,7 +386,7 @@ begin
       utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid,
       landing_page_url, referrer_url
     ) values (
-      new.id, new.email, lower(tg_op), v_origem, v_slug, new.nome_trilha, new.nome, new.cidade, new.telefone,
+      new.id::text, new.email, lower(tg_op), v_origem, v_slug, new.nome_trilha, new.nome, new.cidade, new.telefone,
       new.possui_formacao_superior, new.area_formacao, new.empresa, new.cargo, new.pretende_pos,
       new.utm_source, new.utm_medium, new.utm_campaign, new.utm_term, new.utm_content, new.gclid, new.fbclid,
       new.landing_page_url, new.referrer_url

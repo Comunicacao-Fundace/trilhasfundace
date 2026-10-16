@@ -30,7 +30,9 @@ export const FUNCOES_GUARDADAS = [
   "public.has_answered_trilha_nps(text,text)",
 ];
 
-export async function criarBancoLegado() {
+// Por padrão o banco de teste reproduz produção: SQLs do repositório +
+// ajustes_producao.sql (gerado do catálogo real; ex.: leads.id é uuid).
+export async function criarBancoLegado({ comoProducao = true } = {}) {
   const db = await PGlite.create({ extensions: { citext, pgcrypto } });
   await db.exec(readFileSync(join(aqui, "supabase_stub.sql"), "utf8"));
   for (const arquivo of SQL_LEGADO) {
@@ -38,6 +40,13 @@ export async function criarBancoLegado() {
       await db.exec(lerSql(arquivo));
     } catch (error) {
       throw new Error(`Falha ao aplicar ${arquivo}: ${error.message}`);
+    }
+  }
+  if (comoProducao) {
+    try {
+      await db.exec(readFileSync(join(aqui, "ajustes_producao.sql"), "utf8"));
+    } catch (error) {
+      throw new Error(`Falha ao aplicar ajustes_producao.sql: ${error.message}`);
     }
   }
   return db;

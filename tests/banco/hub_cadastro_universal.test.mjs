@@ -149,11 +149,22 @@ test("aluna antiga recupera as duas trilhas (inclusive a que o legado sobrescrev
   assert.equal(progresso.length, 9);
 });
 
+test("trigger grava histórico e tag com leads.id uuid (como em produção)", async () => {
+  const { rows: [{ tipo }] } = await db.query(
+    "select data_type as tipo from information_schema.columns where table_name = 'leads' and column_name = 'id'");
+  assert.equal(tipo, "uuid");
+  await comoAnon(db, tx => chamarCaptureLead(tx, { p_email: "kai@example.test", p_nome_trilha: "Trilha de Finanças" }));
+  const { rows } = await db.query("select lead_id from public.leads_historico where email = 'kai@example.test'");
+  assert.equal(rows.length, 1, "histórico gravado (antes falhava em silêncio com lead_id bigint)");
+  assert.match(rows[0].lead_id, /^[0-9a-f-]{36}$/);
+  const [tag] = await inscricoesDe(db, "kai@example.test");
+  assert.equal(tag.trilha_slug, "financas");
+});
+
 test("backfill usa inscricoes_ia_direito (tabela só de produção) quando existe", async () => {
   const outro = await criarBancoLegado();
-  await outro.exec(`create table public.inscricoes_ia_direito (id bigint generated always as identity primary key,
-    created_at timestamptz not null default now(), nome text, email text);
-    insert into public.inscricoes_ia_direito (nome, email, created_at) values ('Jó', 'JO@example.test', '2026-08-01T00:00:00Z');
+  await outro.exec(`insert into public.inscricoes_ia_direito (nome, email, cidade, telefone, formacao_superior, area_formacao, empresa, cargo, pos_mba, created_at)
+      values ('Jó', 'JO@example.test', null, '16999990000', 'sim', 'Direito', 'Empresa', 'Advogado', 'sim', '2026-08-01T00:00:00Z');
     insert into public.trilhas (nome, descricao, curso_id, status, slug)
       select 'Semana IA no Direito', '', id, 'publicada', 'semana-ia-no-direito' from public.cursos limit 1;`);
   await outro.exec(MIGRATION);
