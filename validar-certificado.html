@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validar certificado | Trilhas Fundace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #feb737;
+      --black: #080808;
+      --white: #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--black);
+      min-height: 100vh;
+      display: grid; place-items: center;
+      padding: 24px 16px;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 60% at 15% 50%, rgba(254,183,55,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 85% 20%, rgba(254,183,55,0.05) 0%, transparent 50%);
+    }
+    .card {
+      width: 100%; max-width: 460px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 28px; padding: 44px 32px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+      position: relative; z-index: 1;
+    }
+    .logo-wrap { text-align: center; margin-bottom: 32px; }
+    .logo-wrap img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.85; }
+    .card-title { font-size: 1.55rem; font-weight: 600; color: var(--white); letter-spacing: -0.03em; text-align: center; margin-bottom: 8px; }
+    .card-sub { font-size: 0.88rem; color: rgba(255,255,255,0.5); text-align: center; line-height: 1.6; margin-bottom: 28px; }
+    .form-grid { display: grid; gap: 16px; }
+    .field { display: grid; gap: 7px; }
+    .field label { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .field input {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; font: inherit; font-size: 0.94rem; color: var(--white);
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .field input::placeholder { color: rgba(255,255,255,0.26); text-transform: none; letter-spacing: 0; }
+    .field input:focus { outline: none; border-color: rgba(254,183,55,0.6); box-shadow: 0 0 0 3px rgba(254,183,55,0.12); }
+    .submit-btn {
+      width: 100%; padding: 15px 20px; border: none; border-radius: 14px;
+      background: var(--yellow); color: var(--black);
+      font: inherit; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result { margin-top: 20px; padding: 18px; border-radius: 16px; font-size: 0.9rem; line-height: 1.6; display: none; }
+    .result.ok { display: block; background: rgba(22,120,55,0.15); border: 1px solid rgba(22,120,55,0.35); color: #d1fae5; }
+    .result.fail { display: block; background: rgba(220,60,60,0.12); border: 1px solid rgba(220,60,60,0.3); color: #fecaca; }
+    .result strong { color: var(--white); }
+    .result dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; margin-top: 10px; }
+    .result dt { color: rgba(255,255,255,0.55); }
+    .result dd { color: var(--white); font-weight: 600; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo-wrap">
+      <img src="./assets/Logo Fundace-USP-FEARP-PRETO.png" alt="Fundace FEA-RP USP">
+    </div>
+    <h1 class="card-title">Validar certificado</h1>
+    <p class="card-sub">Digite o código impresso no certificado da trilha para confirmar sua autenticidade.</p>
+
+    <form class="form-grid" id="validar-form">
+      <div class="field">
+        <label for="codigo">Código de validação</label>
+        <input id="codigo" name="codigo" placeholder="FDC-XXXX-XXXX-XXXX" autocomplete="off" required maxlength="40">
+      </div>
+      <button class="submit-btn" id="submit-btn" type="submit">Validar</button>
+    </form>
+
+    <div class="result" id="result" aria-live="polite"></div>
+  </main>
+
+  <script src="./supabase/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script>
+    const db = supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey, {
+      auth: { persistSession: false }
+    });
+    const form = document.getElementById("validar-form");
+    const input = document.getElementById("codigo");
+    const button = document.getElementById("submit-btn");
+    const result = document.getElementById("result");
+
+    function formatDate(value) {
+      return new Date(value).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+    }
+
+    function showResult(kind, nodes) {
+      result.className = `result ${kind}`;
+      result.replaceChildren(...nodes);
+    }
+
+    function row(label, value) {
+      const dt = document.createElement("dt");
+      dt.textContent = label;
+      const dd = document.createElement("dd");
+      dd.textContent = value;
+      return [dt, dd];
+    }
+
+    async function validar(codigo) {
+      const normalized = codigo.trim().toUpperCase();
+      if (!normalized) return;
+
+      button.disabled = true;
+      button.textContent = "Validando...";
+      const { data, error } = await db.rpc("validar_certificado", { p_codigo: normalized });
+      button.disabled = false;
+      button.textContent = "Validar";
+
+      if (error) {
+        const msg = document.createElement("p");
+        msg.textContent = "Não foi possível validar agora. Tente novamente em instantes.";
+        showResult("fail", [msg]);
+        return;
+      }
+
+      const cert = Array.isArray(data) ? data[0] : data;
+      if (!cert) {
+        const msg = document.createElement("p");
+        msg.textContent = "Nenhum certificado encontrado com esse código. Confira se digitou exatamente como está impresso.";
+        showResult("fail", [msg]);
+        return;
+      }
+
+      const title = document.createElement("strong");
+      title.textContent = "Certificado válido.";
+      const list = document.createElement("dl");
+      list.append(
+        ...row("Código", cert.codigo),
+        ...row("Nome", cert.nome_impresso),
+        ...row("Trilha", cert.trilha_titulo),
+        ...row("Aulas", String(cert.total_aulas)),
+        ...row("Concluída em", formatDate(cert.concluido_em)),
+        ...row("Emitido em", formatDate(cert.emitido_em))
+      );
+      showResult("ok", [title, list]);
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      validar(input.value);
+    });
+
+    const fromUrl = new URLSearchParams(window.location.search).get("codigo");
+    if (fromUrl) {
+      input.value = fromUrl;
+      validar(fromUrl);
+    }
+  </script>
+</body>
+</html>

@@ -22,9 +22,30 @@ const adminClient = createClient(supabaseUrl, serviceRoleKey, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
 
+// Segredo opcional (mesmo AC_WEBHOOK_SECRET do ac-automation-webhook). Só é
+// exigido com AC_CLICK_WEBHOOK_REQUIRE_SECRET=true, porque ligar a exigência
+// pede atualizar antes a URL do webhook no ActiveCampaign (?secret=...).
+const webhookSecret = Deno.env.get("AC_WEBHOOK_SECRET") ?? "";
+const requireSecret = (Deno.env.get("AC_CLICK_WEBHOOK_REQUIRE_SECRET") ?? "").trim().toLowerCase() === "true";
+
+function maskEmail(email: string) {
+  const [user, domain] = email.split("@");
+  return domain ? `${user.slice(0, 2)}***@${domain}` : "***";
+}
+
 Deno.serve(async request => {
   if (request.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
+  }
+
+  if (requireSecret) {
+    const provided = new URL(request.url).searchParams.get("secret") ?? "";
+    if (!webhookSecret || provided !== webhookSecret) {
+      return new Response(JSON.stringify({ error: "Não autorizado." }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
   }
 
   try {
@@ -55,7 +76,7 @@ Deno.serve(async request => {
     });
 
     if (error) {
-      console.error(`[ac-click-webhook] Erro ao registrar clique de ${email}:`, error.message);
+      console.error(`[ac-click-webhook] Erro ao registrar clique de ${maskEmail(email)}:`, error.message);
     }
 
     return new Response(JSON.stringify({ ok: true }), {

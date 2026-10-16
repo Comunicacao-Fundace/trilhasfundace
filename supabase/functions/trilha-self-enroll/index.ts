@@ -6,6 +6,8 @@ const corsHeaders = {
 
 type Payload = {
   trilhaSlug?: string;
+  // "hub" quando a inscrição vem do Hub Trilhas; o player legado não envia.
+  origem?: string;
 };
 
 type TrilhaConfig = {
@@ -17,6 +19,7 @@ type TrilhaConfig = {
 type SupabaseUser = {
   id: string;
   email?: string;
+  email_confirmed_at?: string | null;
   user_metadata?: Record<string, unknown>;
 };
 
@@ -74,6 +77,17 @@ const TRILHAS: Record<string, TrilhaConfig> = {
     nome: "Semana IA no Direito",
     acListId: (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_ID") ?? "66").trim(),
     acListName: (Deno.env.get("ACTIVECAMPAIGN_GDE_LIST_NAME") ?? "TrilhaGDE").trim(),
+  },
+  // Slug da trilha em public.trilhas (o mesmo usado pelo NPS e pelo SDR).
+  "trilha-nova-de-marketing": {
+    nome: "Mini Curso Estratégias de Marketing para o Mercado em Transformação",
+    acListId: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_ID") ?? "72").trim(),
+    acListName: (Deno.env.get("ACTIVECAMPAIGN_MARKETING_NOVA_LIST_NAME") ?? "TrilhaMarketingNova").trim(),
+  },
+  "gedat": {
+    nome: "Trilha de Gestão Estratégica",
+    acListId: (Deno.env.get("ACTIVECAMPAIGN_GEDAT_LIST_ID") ?? "75").trim(),
+    acListName: (Deno.env.get("ACTIVECAMPAIGN_GEDAT_LIST_NAME") ?? "TrilhaGedat").trim(),
   },
 };
 
@@ -162,6 +176,9 @@ function normalizeTrilhaSlug(raw: string) {
 
   const normalized = slug.normalize("NFD").replace(/[̀-ͯ]/g, "");
   if (/\bgestao estrategica (?:de|da) ti\b/.test(normalized)) return "gestao-estrategica-ti";
+  // Antes caíam em "marketing" (lista errada no ActiveCampaign) e "Trilha inválida".
+  if (normalized === "marketing-nova" || normalized.includes("mercado em transformacao")) return "trilha-nova-de-marketing";
+  if (normalized.includes("estrategica")) return "gedat";
   if (normalized.includes("projetos")) return "gestao-projetos";
   if (normalized.includes("gestao")) return "gestao";
   if (normalized.includes("contifrs") || normalized.includes("ifrs") || normalized.includes("contabilidade")) return "ifrs";
@@ -180,6 +197,32 @@ function currentTrilhas(userMetadata: Record<string, unknown> | null | undefined
     return [metadata.trilha.trim()];
   }
   return [];
+}
+
+// Grava a tag da trilha em public.trilha_inscricoes (idempotente no banco).
+// Se a migration do hub ainda não estiver aplicada, segue sem bloquear.
+async function registrarInscricao(user: SupabaseUser, email: string, rawSlug: string, trilha: TrilhaConfig, origem: string) {
+  const response = await fetch(`${supabaseUrl}/rest/v1/rpc/registrar_inscricao_trilha`, {
+    method: "POST",
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      p_email: email,
+      p_trilha: rawSlug,
+      p_origem: origem,
+      p_user_id: user.email_confirmed_at ? user.id : null,
+      p_nome_trilha: trilha.nome,
+      p_evidencia: { fonte: "trilha-self-enroll" },
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`registrar_inscricao_trilha respondeu ${response.status} ${text.slice(0, 200)}`);
+  }
 }
 
 async function activeCampaignFetch(path: string, init: RequestInit = {}) {
@@ -387,9 +430,19 @@ Deno.serve(async request => {
     return json({ error: "Trilha inválida." }, 400);
   }
 
+  const origem = payload.origem === "hub" ? "hub" : "auto_inscricao";
+  const warnings: string[] = [];
+
+  try {
+    await registrarInscricao(user, email, rawSlug, trilha, origem);
+  } catch (error) {
+    console.warn(`[trilha-self-enroll] Tag não gravada (${configKey}): ${error instanceof Error ? error.message : "erro desconhecido"}`);
+    warnings.push("Inscrição não registrada no histórico.");
+  }
+
   const existingTrilhas = currentTrilhas(user.user_metadata);
   if (existingTrilhas.includes(rawSlug)) {
-    return json({ ok: true, alreadyEnrolled: true, trilhas: existingTrilhas });
+    return json({ ok: true, alreadyEnrolled: true, trilhas: existingTrilhas, warnings });
   }
 
   const nextTrilhas = [...existingTrilhas, rawSlug];
@@ -410,7 +463,6 @@ Deno.serve(async request => {
 
   let acSynced = false;
   let ploomesSynced = false;
-  const warnings: string[] = [];
 
   try {
     await syncActiveCampaign(nome, email, telefone, trilha);

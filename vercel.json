@@ -10,6 +10,8 @@
     { "source": "/redefinir-senha", "destination": "/redefinir-senha.html" },
     { "source": "/definir-senha", "destination": "/definir-senha.html" },
     { "source": "/trilha", "destination": "/Index.html" },
+    { "source": "/hub", "destination": "/hub.html" },
+    { "source": "/validar-certificado", "destination": "/validar-certificado.html" },
     { "source": "/admin/trilhas", "destination": "/admin.html?tab=trilhas" },
     { "source": "/admin/sdr", "destination": "/admin-sdr-marketing.html" },
     { "source": "/admin", "destination": "/admin-login.html" },

@@ -1,0 +1,14 @@
+{
+  "name": "trilhasfundace-testes",
+  "private": true,
+  "description": "Testes locais (PGlite e jsdom). Não fazem parte do site publicado.",
+  "type": "module",
+  "scripts": {
+    "hashes": "node banco/calcular_hashes.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "jsdom": "25.0.1"
+  }
+}

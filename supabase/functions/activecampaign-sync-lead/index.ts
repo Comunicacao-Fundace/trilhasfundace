@@ -97,6 +97,37 @@ const adminClient = createClient(supabaseUrl, serviceRoleKey, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
 
+// Janela em que o navegador que acabou de enviar o formulário pode pedir a
+// sincronização. Antes não havia restrição: qualquer pessoa podia
+// reinscrever um lead antigo numa lista (e disparar automações).
+const SYNC_WINDOW_MINUTES = 30;
+
+function maskEmail(email: string) {
+  const [user, domain] = email.split("@");
+  if (!domain) return "***";
+  return `${user.slice(0, 2)}***@${domain}`;
+}
+
+// true = envio recente registrado em leads_historico; null = tabela ainda
+// não existe (migration do hub não aplicada) e o comportamento antigo vale.
+async function hasRecentSubmission(email: string): Promise<boolean | null> {
+  const since = new Date(Date.now() - SYNC_WINDOW_MINUTES * 60_000).toISOString();
+  const { data, error } = await adminClient
+    .from("leads_historico")
+    .select("id")
+    .eq("email", email)
+    .gte("registrado_em", since)
+    .limit(1);
+
+  if (error) {
+    const missingTable = error.code === "42P01" || error.code === "PGRST205" || /leads_historico/.test(error.message ?? "");
+    if (missingTable) return null;
+    throw new Error(`Falha ao verificar envio recente: ${error.message}`);
+  }
+
+  return Array.isArray(data) && data.length > 0;
+}
+
 function json(body: Record<string, unknown>, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -482,7 +513,16 @@ Deno.serve(async request => {
   }
 
   try {
-    console.info(`[activecampaign-sync-lead] Iniciando sincronização do lead ${email}.`);
+    const recent = await hasRecentSubmission(email);
+    if (recent === false) {
+      console.warn(`[activecampaign-sync-lead] Recusado: sem envio de formulário recente para ${maskEmail(email)}.`);
+      return json({ error: "Sincronização não autorizada." }, 403);
+    }
+    if (recent === null) {
+      console.warn("[activecampaign-sync-lead] leads_historico ausente; seguindo sem verificação de envio recente.");
+    }
+
+    console.info(`[activecampaign-sync-lead] Iniciando sincronização do lead ${maskEmail(email)}.`);
     await markLeadPending(email);
 
     const lead = await getLeadByEmail(email);
@@ -494,7 +534,7 @@ Deno.serve(async request => {
       await ensureListSubscription(contactId, ACTIVECAMPAIGN_SITUACAO_A_LIST_ID);
     }
     await markLead(email, "synced", contactId, listId);
-    console.info(`[activecampaign-sync-lead] Lead ${email} sincronizado com sucesso. contactId=${contactId}, listId=${listId}`);
+    console.info(`[activecampaign-sync-lead] Lead ${maskEmail(email)} sincronizado com sucesso. contactId=${contactId}, listId=${listId}`);
 
     return json({
       ok: true,
@@ -503,7 +543,7 @@ Deno.serve(async request => {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Erro ao sincronizar lead com o ActiveCampaign.";
-    console.error(`[activecampaign-sync-lead] Erro ao sincronizar ${email}: ${message}`);
+    console.error(`[activecampaign-sync-lead] Erro ao sincronizar ${maskEmail(email)}: ${message}`);
     try {
       await markLead(email, "error", undefined, undefined, message);
     } catch (markError) {
